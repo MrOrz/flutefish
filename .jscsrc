@@ -1,0 +1,10 @@
+{
+  "preset": "google",
+  "excludeFiles": ["node_modules/**", "client/build/**"],
+  "esprima": "esprima-fb",
+  "fileExtensions": [".js", ".jsx"],
+
+  "disallowMultipleVarDecl": null,
+  "requireMultipleVarDecl": true,
+  "validateQuoteMarks": { "mark": "'", "escape": true }
+}
