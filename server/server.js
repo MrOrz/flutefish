@@ -1,7 +1,7 @@
 var express = require('express'),
     app = express();
 
-app.use(require('serve-static')('client'));
+app.use(express.static('client'));
 
 // Catch-all route
 //
