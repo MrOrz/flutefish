@@ -81,7 +81,7 @@ app.post('/api/cart', function(req, res) {
     Product.find(productId).then(function(product) {
       if (product) {
         cart.push(productId);
-      }else{
+      } else {
         res.status(422); // Unprocessible Entity
       }
       res.json(cart);

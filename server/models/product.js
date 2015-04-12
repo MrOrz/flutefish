@@ -2,16 +2,15 @@
 //
 // Mimics the API of Sequelize Models.
 //
-var assert = require('assert');
-
-var products = [
-  {
-    id: 'mola', name: 'Mola', thumbnail: '', price: 890, image: ''
-  },
-  {
-    id: 'mola-mola', name: 'Mola Mola', thumbnail: '', price: 799, image: ''
-  }
-];
+var assert = require('assert'),
+    products = [
+      {
+        id: 'mola', name: 'Mola', thumbnail: '', price: 890, image: ''
+      },
+      {
+        id: 'mola-mola', name: 'Mola Mola', thumbnail: '', price: 799, image: ''
+      }
+    ];
 
 /**
   Returns a promise that resolves to a product or list of products.
@@ -36,7 +35,7 @@ exports.find = function(options) {
       return product.id === options
     })[0]);
 
-  } else if(typeof options === 'object') {
+  } else if (typeof options === 'object') {
     return Promise.resolve(products.filter(function(product) {
       var where = options.where,
           column, enumeratedValues;
