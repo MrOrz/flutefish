@@ -33,5 +33,8 @@
   },
   "devDependencies": {
     "webpack": "^1.8.4"
+  },
+  "engines": {
+    "iojs": "1.4.x"
   }
 }

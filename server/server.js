@@ -111,7 +111,7 @@ app.get('*', function(req, res) {
   res.send('Hello World!');
 });
 
-var server = app.listen(5000, function() {
+var server = app.listen(process.env.PORT || 5000, function() {
   console.log('Server listening at http://%s:%s',
               server.address().address, server.address().port);
 });
