@@ -1,7 +1,16 @@
+// Server entry point
+//
+
+// Babel takes care of jsx parsing & requiring.
+require('babel/register');
+
 var express = require('express'),
     Product = require('./models/product'),
     User = require('./models/user'),
-    app = express();
+    app = express(),
+
+    React = require('react'),
+    ServerIndex = require('./views/index.jsx');
 
 // Catch all unhandled promise rejections and print error.
 // Ref: https://iojs.org/api/process.html#process_event_unhandledrejection
@@ -108,7 +117,19 @@ app.delete('/api/cart/:productId', function(req, res) {
 // Catch-all route
 //
 app.get('*', function(req, res) {
-  res.send('Hello World!');
+
+  // Invoke route action
+  // TODO
+
+  // Create app element & the index wrapper element
+  //
+  var app = React.createElement('h1', {}, 'Hello World'),
+      index = React.createElement(ServerIndex, {
+        renderedApp: React.renderToString(app),
+        dehydratedScript: 'var apple = "Banana!";'
+      });
+
+  res.send(React.renderToStaticMarkup(index));
 });
 
 var server = app.listen(process.env.PORT || 5000, function() {
