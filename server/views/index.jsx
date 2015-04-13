@@ -7,10 +7,10 @@ module.exports = React.createClass({
     renderedApp: React.PropTypes.string
   },
 
-  render: function(){
+  render: function() {
     var metaTags = [];
 
-    if(this.props.ogImage){
+    if (this.props.ogImage) {
       metaTags.push(
         <meta property="og:image" content={this.props.ogImage} />
       )
@@ -24,8 +24,12 @@ module.exports = React.createClass({
         {metaTags}
       </head>
       <body>
-        <div id="react-root" dangerouslySetInnerHTML={{__html: this.props.renderedApp}}></div>
-        <script dangerouslySetInnerHTML={{__html: this.props.dehydratedScript}}></script>
+        <div id="react-root" dangerouslySetInnerHTML={
+          {__html: this.props.renderedApp}
+        }></div>
+        <script dangerouslySetInnerHTML={
+          {__html: this.props.dehydratedScript}
+        }></script>
         <script src="/build/client.js"></script>
       </body>
       </html>

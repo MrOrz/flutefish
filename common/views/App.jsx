@@ -10,18 +10,18 @@ module.exports = React.createClass({
     ], constants.CHANGE, '_onStoreChange')
   ],
 
-  _onStoreChange: function(){
+  _onStoreChange: function() {
     this.setState(this.getInitialState());
   },
 
-  getInitialState: function(){
+  getInitialState: function() {
     return {
       RouteStore: this.gofluxStore('RouteStore').get(),
       ProductStore: this.gofluxStore('ProductStore').all()
     }
   },
 
-  render: function(){
+  render: function() {
     return (
       <div>
         <h1>Hello world!</h1>

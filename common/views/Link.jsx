@@ -4,25 +4,27 @@ var React = require('react'),
 
 module.exports = React.createClass({
   propTypes: {
-    to: React.PropTypes.string.isRequired // State name
-    params: React.PropTypes.object        // State parameter
+    to: React.PropTypes.string.isRequired,  // State name
+    params: React.PropTypes.object          // State parameter
   },
 
   mixins: [GofluxMixin(React)],
 
-  getInitialState: function(){
+  getInitialState: function() {
     return {
-      href: router.makePath(this.props.to, this.props.params);
+      href: router.makePath(this.props.to, this.props.params)
     };
   },
 
-  render: function(){
+  render: function() {
     return (
-      <a href={this.state.href} onClick={this._onClick} {...this.props}>{{this.props.children}}</a>
+      <a href={this.state.href} onClick={this._onClick} {...this.props}>
+        {this.props.children}
+      </a>
     );
   },
 
-  _onClick: function(evt){
+  _onClick: function(evt) {
     evt.preventDefault();
     this.gofluxActions('routeActions').match(this.state.href);
   }

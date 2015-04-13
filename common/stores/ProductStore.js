@@ -6,7 +6,7 @@ module.exports = function(context) {
 
   return createEmitter({
     _setProducts: function(newProducts) {
-      if(newProducts){
+      if (newProducts) {
         products = newProducts.slice(0);
         this.emit(constants.CHANGE);
       }
