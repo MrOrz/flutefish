@@ -14,7 +14,10 @@ module.exports = function(context) {
       context.dispatch('ROUTE_CHANGE', route);
 
       if (typeof window !== 'undefined') {
-        window.history.pushState(route, null, path);
+        window.history.pushState({
+          path: path,
+          scrollBeforePush: document.body.scrollTop
+        }, null, path);
       }
 
       // Call data-fetching actions to populate stores with essential data,
