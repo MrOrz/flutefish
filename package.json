@@ -5,6 +5,8 @@
   "main": "server/server.js",
   "scripts": {
     "start": "node server/server.js",
+    "watch": "npm run build -- --watch",
+    "build": "webpack --config=client/config/webpack.js --progress",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
