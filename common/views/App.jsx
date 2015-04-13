@@ -1,6 +1,9 @@
 var React = require('react'),
     constants = require('../config/constants'),
-    mixins = require('goflux').mixins;
+    mixins = require('goflux').mixins,
+
+    ProductsPage = require('./ProductsPage.jsx'),
+    ProductPage = require('./ProductPage.jsx');
 
 module.exports = React.createClass({
   mixins: [
@@ -11,11 +14,24 @@ module.exports = React.createClass({
   ],
 
   _onStoreChange: function() {
+    // TODO: remove this
+    //
     this.setState(this.getInitialState());
+  },
+
+  _getPageElem: function(){
+    var route = this.gofluxStore('RouteStore').get();
+    switch(route.name){
+    case 'products':
+      return <ProductsPage />
+    case 'product':
+      return <ProductPage productId={route.params.id} />
+    }
   },
 
   getInitialState: function() {
     return {
+      pageElem: this._getPageElem(),
       RouteStore: this.gofluxStore('RouteStore').get(),
       ProductStore: this.gofluxStore('ProductStore').all()
     }
@@ -24,7 +40,9 @@ module.exports = React.createClass({
   render: function() {
     return (
       <div>
-        <h1>Hello world!</h1>
+        <h1>Flutfish</h1>
+
+        {this.state.pageElem}
 
         <h2>RouteStore</h2>
         <pre>
