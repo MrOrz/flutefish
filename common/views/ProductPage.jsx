@@ -11,13 +11,14 @@ module.exports = React.createClass({
     productId: React.PropTypes.string.isRequired
   },
 
-  render: function(){
-    var product = this.gofluxStore('ProductStore').find(this.props.productId);
+  render: function() {
+    var product = this.gofluxStore('ProductStore').get(this.props.productId);
 
-    return(
+    return (
       <div>
         <Link to="products">&lt; Back</Link>
-        <h2>{product.name}</h2>
+        <h2>品名：{product.name}</h2>
+        <p>價格：{product.price}</p>
       </div>
     );
   }

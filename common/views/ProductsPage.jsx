@@ -7,16 +7,17 @@ var React = require('react'),
 module.exports = React.createClass({
   mixins: [mixins.GofluxMixin(React)],
 
-  render: function(){
-    var products = this.gofluxStore('ProductStore').all().map(function(product){
+  render: function() {
+    var products = this.gofluxStore('ProductStore').all()
+                       .map(function(product, idx) {
       return (
-        <li>
+        <li key={product.id}>
           <Link to="product" params={{id: product.id}}>{product.name}</Link>
         </li>
       );
     });
 
-    return(
+    return (
       <div>
         <h2>Products</h2>
         <ul>

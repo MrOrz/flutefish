@@ -19,19 +19,24 @@ module.exports = React.createClass({
     this.setState(this.getInitialState());
   },
 
-  _getPageElem: function(){
+  _getPage: function() {
     var route = this.gofluxStore('RouteStore').get();
-    switch(route.name){
+    switch (route.name){
     case 'products':
-      return <ProductsPage />
+      return {
+        component: ProductsPage
+      };
     case 'product':
-      return <ProductPage productId={route.params.id} />
+      return {
+        component: ProductPage,
+        props: {productId: route.params.id}
+      };
     }
   },
 
   getInitialState: function() {
     return {
-      pageElem: this._getPageElem(),
+      page: this._getPage(),
       RouteStore: this.gofluxStore('RouteStore').get(),
       ProductStore: this.gofluxStore('ProductStore').all()
     }
@@ -42,7 +47,11 @@ module.exports = React.createClass({
       <div>
         <h1>Flutfish</h1>
 
-        {this.state.pageElem}
+        <this.state.page.component {...this.state.page.props} />
+
+        <hr />
+        <p>Debug 區</p>
+        <hr />
 
         <h2>RouteStore</h2>
         <pre>
