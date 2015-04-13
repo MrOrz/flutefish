@@ -14,8 +14,11 @@ module.exports = React.createClass({
   ],
 
   componentDidMount: function() {
-    window.addEventListener('popstate', function() {
-      this.gofluxActions('routeActions').match(window.location.pathname);
+    window.addEventListener('popstate', function(evt) {
+      this.gofluxActions('routeActions').goTo(
+        window.location.pathname,
+        evt.state
+      );
     }.bind(this));
   },
 

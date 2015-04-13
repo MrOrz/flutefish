@@ -132,7 +132,7 @@ app.get('*', function(req, res) {
 
   // Invoke route action
   var context = gofluxApp.createContext();
-  context.getActions('routeActions').match(req.path).then(function(meta) {
+  context.getActions('routeActions').goTo(req.path).then(function(meta) {
     // Create app element & the index wrapper element
     //
     var app = React.createElement(App, {gofluxContext: context}),

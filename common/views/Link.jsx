@@ -26,7 +26,7 @@ module.exports = React.createClass({
 
   _onClick: function(evt) {
     evt.preventDefault();
-    this.gofluxActions('routeActions').match(this.state.href);
+    this.gofluxActions('routeActions').goTo(this.state.href);
   }
 });
 

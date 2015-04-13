@@ -2,7 +2,7 @@ var router = require('../config/router');
 
 module.exports = function(context) {
   return {
-    match: function(path) {
+    goTo: function(path, poppedState) {
       console.log('Matching route for path', path);
       // Get corresponding route object and dispatch it to store
       //
@@ -16,7 +16,7 @@ module.exports = function(context) {
       if (typeof window !== 'undefined') {
         window.history.pushState({
           path: path,
-          scrollBeforePush: document.body.scrollTop
+          scrollPositionBeforePush: document.body.scrollTop
         }, null, path);
       }
 
@@ -25,7 +25,9 @@ module.exports = function(context) {
       //
       switch (route.name){
       case 'products':
-        return context.getActions('productActions').all().then(function() {
+        return context.getActions('productActions').all()
+                      .then(doScroll)
+                      .then(function() {
           return {
             title: '所有商品 :: Flutefish'
           }
@@ -33,6 +35,7 @@ module.exports = function(context) {
 
       case 'product':
         return context.getActions('productActions').get(route.params.id)
+                      .then(doScroll)
                       .then(function() {
           var product = context.getStore('ProductStore').get(route.params.id);
           return {
@@ -42,6 +45,19 @@ module.exports = function(context) {
         });
       }
 
+      function doScroll() {
+        if (typeof window === 'undefined') {
+          return Promise.resolve();
+        } else {
+          console.log('poppedState', poppedState);
+          window.scrollTo(
+            0, (poppedState && poppedState.scrollPositionBeforePush) || 0
+          );
+          return Promise.resolve();
+        }
+      }
     }
   };
+
 };
+
