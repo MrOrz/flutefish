@@ -11,6 +11,15 @@ module.exports = function(context) {
     },
     get: function() {
       return currentRoute;
+    },
+
+    dehydrate: function() {
+      return currentRoute;
+    },
+
+    rehydrate: function(state) {
+      currentRoute = state;
     }
+
   });
 };

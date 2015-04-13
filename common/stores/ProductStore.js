@@ -16,6 +16,12 @@ module.exports = function(context) {
     },
     get: function(id) {
       return products.filter(function(product) {return product.id === id})[0];
+    },
+    dehydrate: function() {
+      return products;
+    },
+    rehydrate: function(state) {
+      products = state;
     }
   });
 };

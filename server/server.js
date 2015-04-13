@@ -133,16 +133,14 @@ app.get('*', function(req, res) {
   // Invoke route action
   var context = gofluxApp.createContext();
   context.getActions('routeActions').match(req.path).then(function(meta) {
-
     // Create app element & the index wrapper element
     //
-    var app = React.createElement(App, {
-          gofluxContext: context
-        }, 'Hello World'),
+    var app = React.createElement(App, {gofluxContext: context}),
+        dehydratedStr = JSON.stringify(context.dehydrate()),
         index = React.createElement(ServerIndex, {
           meta: meta,
           renderedApp: React.renderToString(app),
-          dehydratedScript: 'var apple = "Banana!";'
+          dehydratedScript: 'var __dehydrated = ' + dehydratedStr + ';'
         });
 
     res.send(React.renderToStaticMarkup(index));
