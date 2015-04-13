@@ -13,9 +13,9 @@ module.exports = function(context) {
 
     get: function(id) {
       return fetch(
-        constants.API_HOST + '/api/product/' + id
+        constants.API_HOST + '/api/products/' + id
       ).then(function(res) {
-        return res.json();
+        return res.ok ? res.json() : Promise.reject('Not found');
       }).then(function(data){
         context.dispatch('SET_PRODUCTS', [data]);
       });

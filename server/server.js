@@ -64,9 +64,13 @@ app.get('/api/products', function(req, res) {
   });
 });
 
-app.get('/api/product/:id', function(req, res) {
+app.get('/api/products/:id', function(req, res) {
   Product.find(req.params.id).then(function(product) {
-    res.json(product);
+    if (product) {
+      res.json(product);
+    } else {
+      res.sendStatus(404);
+    }
   });
 });
 
@@ -142,8 +146,8 @@ app.get('*', function(req, res) {
         });
 
     res.send(React.renderToStaticMarkup(index));
-  }).catch(function(reason){
-    if (reason === 'Not found'){
+  }).catch(function(reason) {
+    if (reason === 'Not found') {
       res.sendStatus(404);
     } else {
       throw reason;
