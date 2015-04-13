@@ -8,15 +8,23 @@ var express = require('express'),
     Product = require('./models/product'),
     User = require('./models/user'),
     app = express(),
+    constants = require('../common/config/constants'),
 
     React = require('react'),
-    ServerIndex = require('./views/index.jsx');
+    App = require('../common/views/App.jsx'),
+    ServerIndex = require('./views/index.jsx'),
+    gofluxApp = require('../common/gofluxApp');
 
 // Catch all unhandled promise rejections and print error.
 // Ref: https://iojs.org/api/process.html#process_event_unhandledrejection
 //
 process.on('unhandledRejection', function(reason, promise) {
-  console.error('[Unhandled Rejection] Reason:', reason);
+  if (reason.stack) {
+    // Error object, has stack info
+    console.error('[Unhandled Rejection]', reason.stack);
+  } else {
+    console.error('[Unhandled Rejection] Reason:', reason);
+  }
   console.error('[Unhandled Rejection] Promise:', promise);
 });
 
@@ -119,20 +127,31 @@ app.delete('/api/cart/:productId', function(req, res) {
 app.get('*', function(req, res) {
 
   // Invoke route action
-  // TODO
+  var context = gofluxApp.createContext();
+  context.getActions('routeActions').match(req.path).then(function(meta) {
 
-  // Create app element & the index wrapper element
-  //
-  var app = React.createElement('h1', {}, 'Hello World'),
-      index = React.createElement(ServerIndex, {
-        renderedApp: React.renderToString(app),
-        dehydratedScript: 'var apple = "Banana!";'
-      });
+    // Create app element & the index wrapper element
+    //
+    var app = React.createElement(App, {
+          gofluxContext: context
+        }, 'Hello World'),
+        index = React.createElement(ServerIndex, {
+          meta: meta,
+          renderedApp: React.renderToString(app),
+          dehydratedScript: 'var apple = "Banana!";'
+        });
 
-  res.send(React.renderToStaticMarkup(index));
+    res.send(React.renderToStaticMarkup(index));
+  }).catch(function(reason){
+    if (reason === 'Not found'){
+      res.sendStatus(404);
+    } else {
+      throw reason;
+    }
+  });
 });
 
-var server = app.listen(process.env.PORT || 5000, function() {
+var server = app.listen(constants.PORT, function() {
   console.log('Server listening at http://%s:%s',
               server.address().address, server.address().port);
 });
