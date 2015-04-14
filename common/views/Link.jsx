@@ -1,6 +1,6 @@
 var React = require('react'),
     GofluxMixin = require('goflux').mixins.GofluxMixin,
-    router;
+    router = require('../config/router');
 
 module.exports = React.createClass({
   propTypes: {
@@ -29,8 +29,3 @@ module.exports = React.createClass({
     this.gofluxActions('routeActions').goTo(this.state.href);
   }
 });
-
-// Populate router after module.exports to break the following require loop:
-// common/config/router -> common/views/* -> common/views/Link -> common/config/router
-//
-router = require('../config/router');
