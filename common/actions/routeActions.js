@@ -1,61 +1,77 @@
-var router = require('../config/router');
+var router = require('../config/router'),
+    constants = require('../config/constants');
 
 module.exports = function(context) {
+
+  // Call data-fetching actions to populate stores with essential data,
+  // then determine page title
+  //
+  function fetchDataAndSetMeta () {
+    var route = context.getStore('RouteStore').get();
+
+    switch (route.name){
+    case 'products':
+      return context.getActions('productActions').all().then(function() {
+        return {
+          title: '所有商品 :: Flutefish'
+        }
+      });
+
+    case 'product':
+      return context.getActions('productActions').get(
+        route.params.id
+      ).then(function() {
+        var product = context.getStore('ProductStore').get(route.params.id);
+        return {
+          title: product.name + ' :: Flutefish',
+          ogImage: product.image
+        }
+      });
+    }
+  }
+
   return {
     goTo: function(path, poppedState) {
       console.log('Matching route for path', path);
       // Get corresponding route object and dispatch it to store
       //
       var route = router.getRoute(path);
+
       if (!route) {
         return Promise.reject('Not found');
       }
 
-      context.dispatch('ROUTE_CHANGE', route);
-
-      if (typeof window !== 'undefined') {
+      if (constants.IS_BROWSER && !poppedState) {
+        // Change URL if the user is not hitting the back / forward button
+        //
         window.history.pushState({
           path: path,
+
+          // Before route change, memorize current scrolling position.
           scrollPositionBeforePush: document.body.scrollTop
         }, null, path);
       }
 
-      // Call data-fetching actions to populate stores with essential data,
-      // then determine page title
+      // Dispatch route change.
+      // This will trigger change callback of the components and thus
+      // change the content of the app.
       //
-      switch (route.name){
-      case 'products':
-        return context.getActions('productActions').all()
-                      .then(doScroll)
-                      .then(function() {
-          return {
-            title: '所有商品 :: Flutefish'
-          }
-        });
+      context.dispatch('ROUTE_CHANGE', route);
 
-      case 'product':
-        return context.getActions('productActions').get(route.params.id)
-                      .then(doScroll)
-                      .then(function() {
-          var product = context.getStore('ProductStore').get(route.params.id);
-          return {
-            title: product.name + ' :: Flutefish',
-            ogImage: product.image
-          }
-        });
+      if (constants.IS_BROWSER) {
+        // Restore old scrolling position, or to the top
+        //
+        window.scrollTo(
+          0, (poppedState && poppedState.scrollPositionBeforePush) || 0
+        );
       }
 
-      function doScroll() {
-        if (typeof window === 'undefined') {
-          return Promise.resolve();
-        } else {
-          console.log('poppedState', poppedState);
-          window.scrollTo(
-            0, (poppedState && poppedState.scrollPositionBeforePush) || 0
-          );
-          return Promise.resolve();
+      return fetchDataAndSetMeta().then(function(meta) {
+        if (constants.IS_BROWSER) {
+          document.title = meta.title;
         }
-      }
+        return meta;
+      });
     }
   };
 
