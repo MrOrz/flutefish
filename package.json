@@ -11,7 +11,7 @@
     "deploy:commit": "_COMMIT_MSG=$(git log -n 1 --pretty=format:'%h - %s') && git add .gitignore client/build && git commit -m \"$_COMMIT_MSG\"",
     "deploy:push": "git push --force heroku _deploy:master",
     "deploy:cleanup": "git checkout - && git branch -D _deploy",
-    "deploy": "npm run deploy:init && npm run build && npm run deploy:commit && npm run deploy:push && npm run deploy:cleanup"
+    "deploy": "npm run deploy:init && NODE_ENV=production npm run build -- -p && npm run deploy:commit && npm run deploy:push && npm run deploy:cleanup"
   },
   "repository": {
     "type": "git",
