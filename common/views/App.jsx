@@ -13,15 +13,6 @@ module.exports = React.createClass({
     ], constants.CHANGE, '_onStoreChange')
   ],
 
-  componentDidMount: function() {
-    window.addEventListener('popstate', function(evt) {
-      this.gofluxActions('routeActions').goTo(
-        window.location.pathname,
-        evt.state
-      );
-    }.bind(this));
-  },
-
   _onStoreChange: function() {
     // TODO: remove this
     //
