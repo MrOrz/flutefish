@@ -14,18 +14,27 @@ module.exports = function(context) {
       orderedIds = [];
 
   return createEmitter({
-    _setProducts: function(newProducts) {
+    _setSingleProduct: function(product) {
+      if (products[product.id]) {
+        assign(products[product.id], product);
+      } else {
+        products[product.id] = product;
+      }
+    },
+
+    _setProduct: function(product) {
+      this._setSingleProduct(product);
+      this.emit(constants.CHANGE);
+    },
+
+    _setProductList: function(newProducts) {
       if (newProducts) {
 
         // Update products and orderedIds.
         orderedIds = newProducts.map(function(product) {
-          if (products[product.id]) {
-            assign(products[product.id], product);
-          }else {
-            products[product.id] = product;
-          }
+          this._setSingleProduct(product);
           return product.id;
-        });
+        }.bind(this));
 
         this.emit(constants.CHANGE);
       }

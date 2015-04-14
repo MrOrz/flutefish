@@ -11,7 +11,8 @@ gofluxApp.defineStore('RouteStore', {
 }, require('./stores/RouteStore'));
 
 gofluxApp.defineStore('ProductStore', {
-  SET_PRODUCTS: '_setProducts'
+  SET_PRODUCTS: '_setProductList',
+  SET_PRODUCT: '_setProduct',
 }, require('./stores/ProductStore'));
 
 module.exports = gofluxApp;

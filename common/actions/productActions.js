@@ -17,7 +17,7 @@ module.exports = function(context) {
       ).then(function(res) {
         return res.ok ? res.json() : Promise.reject('Not found');
       }).then(function(data) {
-        context.dispatch('SET_PRODUCTS', [data]);
+        context.dispatch('SET_PRODUCT', data);
       });
     }
   }
