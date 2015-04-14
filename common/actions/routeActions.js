@@ -7,18 +7,24 @@ module.exports = function(context) {
   // then determine page title
   //
   function fetchDataAndSetMeta () {
-    var route = context.getStore('RouteStore').get();
+    var route = context.getStore('RouteStore').get(),
+        promises = [];
+
+    // Invoke cartActions.get no matter what pages
+    //
+    promises.push(context.getActions('cartActions').all());
 
     switch (route.name){
     case 'products':
-      return context.getActions('productActions').all().then(function() {
+      promises.push(context.getActions('productActions').all().then(function() {
         return {
           title: '所有商品 :: Flutefish'
         }
-      });
+      }));
+      break;
 
     case 'product':
-      return context.getActions('productActions').get(
+      promises.push(context.getActions('productActions').get(
         route.params.id
       ).then(function() {
         var product = context.getStore('ProductStore').get(route.params.id);
@@ -26,8 +32,11 @@ module.exports = function(context) {
           title: product.name + ' :: Flutefish',
           ogImage: product.image
         }
-      });
+      }));
+      break;
     }
+
+    return Promise.all(promises);
   }
 
   return {

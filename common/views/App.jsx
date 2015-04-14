@@ -2,6 +2,8 @@ var React = require('react'),
     constants = require('../config/constants'),
     mixins = require('goflux').mixins,
 
+    SiteHeader = require('./SiteHeader.jsx'),
+
     ProductsPage = require('./ProductsPage.jsx'),
     ProductPage = require('./ProductPage.jsx');
 
@@ -14,7 +16,7 @@ module.exports = React.createClass({
   ],
 
   _onStoreChange: function() {
-    // TODO: remove this
+    // TODO: remove this, just setPage should be enough
     //
     this.setState(this.getInitialState());
   },
@@ -45,13 +47,12 @@ module.exports = React.createClass({
   render: function() {
     return (
       <div>
-        <h1>Flutfish</h1>
+        <SiteHeader />
 
         <this.state.page.component {...this.state.page.props} />
 
         <hr />
         <p>Debug 區</p>
-        <hr />
 
         <h2>RouteStore</h2>
         <pre>
