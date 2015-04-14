@@ -36,7 +36,9 @@ module.exports = function(context) {
       break;
     }
 
-    return Promise.all(promises);
+    return Promise.all(promises).then(function(resolvedData) {
+      return resolvedData[resolvedData.length - 1]; // last promise = meta
+    });
   }
 
   return {
