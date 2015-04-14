@@ -1,8 +1,9 @@
-var EventEmitter = require('events').EventEmitter;
+// Adding EventEmitter.prototype to store instance.
+// Ref: https://facebook.github.io/flux/docs/todo-list.html#creating-stores
+//
+var EventEmitter = require('events').EventEmitter,
+    assign = require('object-assign');
 
 module.exports = function(instance) {
-  instance.addListener = EventEmitter.prototype.addListener;
-  instance.removeListener = EventEmitter.prototype.removeListener;
-  instance.emit = EventEmitter.prototype.emit;
-  return instance;
+  return assign({}, EventEmitter.prototype, instance);
 };
