@@ -8,10 +8,6 @@ var Router = require('routr'),
       product: {
         path: '/products/:id',
         method: 'get'
-      },
-      cart: {
-        path: '/cart',
-        method: 'get'
       }
     };
 

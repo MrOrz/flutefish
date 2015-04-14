@@ -27,7 +27,7 @@ module.exports = React.createClass({
     return (
       <header>
         <h1>Flutefish</h1>
-        <Link to="cart">${totalPriceInCart}</Link>
+        <a>${totalPriceInCart}</a>
       </header>
     );
   }
