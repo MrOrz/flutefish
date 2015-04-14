@@ -10,9 +10,13 @@ module.exports = function(context) {
     var route = context.getStore('RouteStore').get(),
         promises = [];
 
-    // Invoke cartActions.get no matter what pages
-    //
-    promises.push(context.getActions('cartActions').all());
+    if (!constants.IS_BROWSER) {
+      // No matter the user landed in what page, cart data is required.
+      // However in browser, cart data does not need to refresh on every route
+      // change.
+      //
+      promises.push(context.getActions('cartActions').all());
+    }
 
     switch (route.name){
     case 'products':
