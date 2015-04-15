@@ -44,8 +44,8 @@ module.exports = function(context) {
       }
     },
 
-    _updateMultipleProducts: function(newProducts){
-      if(newProducts){
+    _updateMultipleProducts: function(newProducts) {
+      if (newProducts) {
         this._setProducts(newProducts);
         this.emit(constants.CHANGE);
       }

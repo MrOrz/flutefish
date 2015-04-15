@@ -106,9 +106,9 @@ app.post('/api/cart', function(req, res) {
         } else {
           res.status(422); // Unprocessible Entity
         }
-      }).then(function(){
+      }).then(function() {
         return fetchProductsByIds(cart);
-      }).then(function(records){
+      }).then(function(records) {
         res.json(records);
       });
       return;

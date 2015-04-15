@@ -11,7 +11,7 @@ module.exports = React.createClass({
     mixins.GofluxMixin(React)
   ],
 
-  getInitialState: function(){
+  getInitialState: function() {
     return {
       idsInCart: this.gofluxStore('CartStore').allIds()
     };

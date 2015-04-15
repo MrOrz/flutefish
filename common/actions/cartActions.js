@@ -19,9 +19,9 @@ module.exports = function(context) {
         method: 'post',
         headers: header,
         body: JSON.stringify({productId: productId})
-      }).then(function(res){
+      }).then(function(res) {
         return res.json();
-      }).then(function(data){
+      }).then(function(data) {
         context.dispatch('SET_CART', data);
       });
     },
@@ -29,9 +29,9 @@ module.exports = function(context) {
     remove: function(productId) {
       return fetch(constants.API_HOST + '/api/cart/' + productId, {
         method: 'delete'
-      }).then(function(res){
+      }).then(function(res) {
         return res.json()
-      }).then(function(data){
+      }).then(function(data) {
         context.dispatch('SET_CART', data);
       })
     }

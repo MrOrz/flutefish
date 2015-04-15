@@ -12,34 +12,34 @@ module.exports = React.createClass({
     productId: React.PropTypes.string.isRequired
   },
 
-  _onCartChange: function(){
+  _onCartChange: function() {
     this.setState(this.getInitialState());
   },
 
-  _addToCart: function(){
+  _addToCart: function() {
     this.gofluxActions('cartActions').add(this.props.productId);
   },
 
-  _removeFromCart: function(){
+  _removeFromCart: function() {
     this.gofluxActions('cartActions').remove(this.props.productId);
   },
 
-  getInitialState: function(){
+  getInitialState: function() {
     var idsInCart = this.gofluxStore('CartStore').allIds();
     return {
       isInCart: idsInCart.indexOf(this.props.productId) !== -1
     };
   },
 
-  render: function(){
-    if(this.state.isInCart){
+  render: function() {
+    if (this.state.isInCart) {
       return (
         <button type="button"
                 onClick={this._removeFromCart}>
           從購物車移除
         </button>
       );
-    }else{
+    }else {
       return (
         <button type="button"
               onClick={this._addToCart}>
