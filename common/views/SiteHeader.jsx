@@ -24,6 +24,17 @@ module.exports = React.createClass({
   componentDidMount: function() {
     // Initialize dropdown
     $(React.findDOMNode(this.refs.cartDropdownToggle)).dropdown();
+
+    // We do not hope cart dropdown to be hidden on dropdown click,
+    // thus we intercept click here.
+    //
+    // Note that because React always listens at root element, React event
+    // handlers often fires after jQuery's handlers. (http://goo.gl/LF3edm)
+    // Thus we use jQuery to stop event propagation here.
+    //
+    $(React.findDOMNode(this.refs.cartDropdown)).click(function(e){
+      e.stopPropagation();
+    });
   },
 
   render: function() {
@@ -75,7 +86,7 @@ module.exports = React.createClass({
             </button>
 
             <div className="dropdown-menu SiteHeader-dropdownMenu" role="menu"
-              aria-labelledby="dLabel">
+              aria-labelledby="dLabel" ref="cartDropdown">
               {dropdownContent}
             </div>
           </div>
