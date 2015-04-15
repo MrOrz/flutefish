@@ -1,3 +1,8 @@
+// Require jQuery and bootstrap
+//
+require('expose?jQuery!expose?$!jquery'); // expose "jQuery" and "$" to window
+require('bootstrap');
+
 var React = require('react'),
     App = require('../../common/views/App.jsx'),
     gofluxApp = require('../../common/gofluxApp'),
