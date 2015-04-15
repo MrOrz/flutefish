@@ -1,0 +1,15 @@
+.SiteHeader-container {
+  display: flex;
+}
+
+.SiteHeader-logo {
+  margin-right: auto;
+}
+
+.SiteHeader-dropdownMenu {
+  right: 0;
+  left: auto;
+  width: 200px;
+  padding: 8px;
+  max-width: 80vw;
+}
