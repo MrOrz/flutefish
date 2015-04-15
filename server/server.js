@@ -143,7 +143,7 @@ app.get('*', function(req, res) {
           dehydratedScript: 'var __dehydrated = ' + dehydratedStr + ';'
         });
 
-    res.send(React.renderToStaticMarkup(index));
+    res.send('<!doctype html>' + React.renderToStaticMarkup(index));
   }).catch(function(reason) {
     if (reason === 'Not found') {
       res.sendStatus(404);

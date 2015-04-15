@@ -20,7 +20,10 @@ module.exports = React.createClass({
       <html lang="zh-TW">
       <head>
         <meta charSet="UTF-8" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>{this.props.meta.title}</title>
+        <link href="/vendor/bootstrap.min.css" rel="stylesheet" />
         {metaTags}
       </head>
       <body>
