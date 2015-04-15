@@ -17,7 +17,7 @@ module.exports = React.createClass({
     // be unmounted. `setState` should not be called on unmounted node or React
     // gives us warnings.
     //
-    if(this.isMounted()){
+    if (this.isMounted()) {
       this.setState(this.getInitialState());
     }
   },

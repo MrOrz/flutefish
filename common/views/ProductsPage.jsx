@@ -15,7 +15,7 @@ module.exports = React.createClass({
   ],
 
   _onStoreChange: function() {
-    this.setState( this.getInitialState() );
+    this.setState(this.getInitialState());
   },
 
   getInitialState: function() {
