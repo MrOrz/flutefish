@@ -39,9 +39,9 @@ module.exports = React.createClass({
 
       dropdownContent = [
         (
-          <ul>{cart.map(function(product) {
+          <ul key="list">{cart.map(function(product) {
             return (
-              <li>
+              <li key={product.id}>
                 {product.name}
                 <span>
                   ${product.price}
@@ -52,9 +52,9 @@ module.exports = React.createClass({
             );
           })}</ul>
         ),
-        (<p>總計 <span>{totalPriceInCart}</span></p>),
+        (<p key="total">總計 <span>{totalPriceInCart}</span></p>),
         (
-          <p>
+          <p key="checkout">
             <button className="btn btn-large btn-block btn-primary"
               type="button">
               結賬去！

@@ -11,13 +11,11 @@ module.exports = React.createClass({
   mixins: [
     mixins.GofluxMixin(React),
     mixins.StoreWatchMixin([
-      'RouteStore', 'ProductStore', 'CartStore'
+      'RouteStore'
     ], constants.CHANGE, '_onStoreChange')
   ],
 
   _onStoreChange: function() {
-    // TODO: remove this, just setPage should be enough
-    //
     this.setState(this.getInitialState());
   },
 
@@ -38,10 +36,7 @@ module.exports = React.createClass({
 
   getInitialState: function() {
     return {
-      page: this._getPage(),
-      RouteStore: this.gofluxStore('RouteStore').get(),
-      ProductStore: this.gofluxStore('ProductStore').all(),
-      CartStore: this.gofluxStore('CartStore').all()
+      page: this._getPage()
     }
   },
 
@@ -51,24 +46,6 @@ module.exports = React.createClass({
         <SiteHeader />
 
         <this.state.page.component {...this.state.page.props} />
-
-        <hr />
-        <p>Debug 區</p>
-
-        <h2>RouteStore</h2>
-        <pre>
-          {JSON.stringify(this.state.RouteStore, null, '  ')}
-        </pre>
-
-        <h2>ProductStore</h2>
-        <pre>
-          {JSON.stringify(this.state.ProductStore, null, '  ')}
-        </pre>
-
-        <h2>CartStore</h2>
-        <pre>
-          {JSON.stringify(this.state.CartStore, null, '  ')}
-        </pre>
       </div>
     );
   },

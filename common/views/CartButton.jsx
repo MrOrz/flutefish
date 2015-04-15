@@ -13,7 +13,13 @@ module.exports = React.createClass({
   },
 
   _onCartChange: function() {
-    this.setState(this.getInitialState());
+    // On cart change, the button inside the cart dropdown might have already
+    // be unmounted. `setState` should not be called on unmounted node or React
+    // gives us warnings.
+    //
+    if(this.isMounted()){
+      this.setState(this.getInitialState());
+    }
   },
 
   _addToCart: function() {

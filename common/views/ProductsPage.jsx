@@ -8,19 +8,26 @@ var React = require('react'),
 
 module.exports = React.createClass({
   mixins: [
-    mixins.GofluxMixin(React)
+    mixins.GofluxMixin(React),
+    mixins.StoreWatchMixin([
+      'ProductStore', 'CartStore'
+    ], constants.CHANGE, '_onStoreChange')
   ],
+
+  _onStoreChange: function() {
+    this.setState( this.getInitialState() );
+  },
 
   getInitialState: function() {
     return {
+      products: this.gofluxStore('ProductStore').all(),
       idsInCart: this.gofluxStore('CartStore').allIds()
     };
   },
 
   render: function() {
 
-    var products = this.gofluxStore('ProductStore').all()
-                       .map(function(product, idx) {
+    var productElems = this.state.products.map(function(product, idx) {
       return (
         <li key={product.id}>
           <Link to="product" params={{id: product.id}}>{product.name}</Link>
@@ -33,7 +40,7 @@ module.exports = React.createClass({
       <div>
         <h2>Products</h2>
         <ul>
-          {products}
+          {productElems}
         </ul>
       </div>
     );

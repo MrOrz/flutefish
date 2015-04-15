@@ -6,14 +6,29 @@ var React = require('react'),
     CartButton = require('./CartButton.jsx');
 
 module.exports = React.createClass({
-  mixins: [mixins.GofluxMixin(React)],
+  mixins: [
+    mixins.GofluxMixin(React),
+    mixins.StoreWatchMixin([
+      'ProductStore'
+    ], constants.CHANGE, '_onStoreChange')
+  ],
 
   propTypes: {
     productId: React.PropTypes.string.isRequired
   },
 
+  _onStoreChange: function() {
+    this.setState(this.getInitialState());
+  },
+
+  getInitialState: function() {
+    return {
+      product: this.gofluxStore('ProductStore').get(this.props.productId)
+    }
+  },
+
   render: function() {
-    var product = this.gofluxStore('ProductStore').get(this.props.productId);
+    var product = this.state.product;
 
     return (
       <div>
