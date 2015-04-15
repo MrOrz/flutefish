@@ -14,9 +14,7 @@ module.exports = function(context) {
       // Wait for product store to populate the cart product data
       context.waitFor(['ProductStore']);
 
-      orderedIds = products.map(function(product) {
-        return product.id;
-      });
+      orderedIds = products.map(function(product) {return product.id;});
 
       this.emit(constants.CHANGE);
     },
@@ -27,6 +25,10 @@ module.exports = function(context) {
       return orderedIds.map(function(id) {
         return productStore.get(id);
       });
+    },
+
+    allIds: function() {
+      return orderedIds;
     },
 
     dehydrate: function() {

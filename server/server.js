@@ -74,11 +74,15 @@ app.get('/api/products/:id', function(req, res) {
   });
 });
 
-app.get('/api/cart', function(req, res) {
-  Product.find({
-    where: {id: req.user.cart},
+function fetchProductsByIds(ids) {
+  return Product.find({
+    where: {id: ids},
     attributes: ['id', 'name', 'thumbnail', 'price']
-  }).then(function(records) {
+  });
+}
+
+app.get('/api/cart', function(req, res) {
+  fetchProductsByIds(req.user.cart).then(function(records) {
     res.json(records);
   });
 });
@@ -90,27 +94,33 @@ app.post('/api/cart', function(req, res) {
 
   if (!productId) {
     res.status(400);
-    res.json(cart);
-    return;
+  }else {
+    // Do not push to cart twice
+    //
+    if (idx === -1) {
+      // Push to cart only if product id is valid.
+      //
+      Product.find(productId).then(function(product) {
+        if (product) {
+          cart.push(productId);
+        } else {
+          res.status(422); // Unprocessible Entity
+        }
+      }).then(function(){
+        return fetchProductsByIds(cart);
+      }).then(function(records){
+        res.json(records);
+      });
+      return;
+    }else {
+      res.status(422); // Unprocessible Entity
+    }
   }
 
-  // Do not push to cart twice
-  //
-  if (idx === -1) {
-    // Push to cart only if product id is valid.
-    //
-    Product.find(productId).then(function(product) {
-      if (product) {
-        cart.push(productId);
-      } else {
-        res.status(422); // Unprocessible Entity
-      }
-      res.json(cart);
-    });
-  }else {
-    res.status(422); // Unprocessible Entity
-    res.json(cart);
-  }
+  fetchProductsByIds(cart).then(function(records) {
+    res.json(records);
+  });
+
 });
 
 app.delete('/api/cart/:productId', function(req, res) {
@@ -122,7 +132,10 @@ app.delete('/api/cart/:productId', function(req, res) {
   }else {
     cart.splice(idx, 1);
   }
-  res.json(cart);
+
+  fetchProductsByIds(cart).then(function(records) {
+    res.json(records);
+  });
 });
 
 //

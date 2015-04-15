@@ -22,7 +22,13 @@ module.exports = function(context) {
       }
     },
 
-    _setProduct: function(product) {
+    _setProducts: function(newProducts) {
+      newProducts.forEach(function(product) {
+        this._setSingleProduct(product);
+      }.bind(this));
+    },
+
+    _updateProduct: function(product) {
       this._setSingleProduct(product);
       this.emit(constants.CHANGE);
     },
@@ -30,15 +36,21 @@ module.exports = function(context) {
     _setProductList: function(newProducts) {
       if (newProducts) {
 
-        // Update products and orderedIds.
-        orderedIds = newProducts.map(function(product) {
-          this._setSingleProduct(product);
-          return product.id;
-        }.bind(this));
+        this._setProducts(newProducts)
+        // Update orderedIds.
+        orderedIds = newProducts.map(function(product) {return product.id});
 
         this.emit(constants.CHANGE);
       }
     },
+
+    _updateMultipleProducts: function(newProducts){
+      if(newProducts){
+        this._setProducts(newProducts);
+        this.emit(constants.CHANGE);
+      }
+    },
+
     all: function() {
       return orderedIds.map(function(id) {
         return products[id];

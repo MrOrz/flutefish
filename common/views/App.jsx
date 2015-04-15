@@ -11,7 +11,7 @@ module.exports = React.createClass({
   mixins: [
     mixins.GofluxMixin(React),
     mixins.StoreWatchMixin([
-      'RouteStore', 'ProductStore'
+      'RouteStore', 'ProductStore', 'CartStore'
     ], constants.CHANGE, '_onStoreChange')
   ],
 
@@ -40,7 +40,8 @@ module.exports = React.createClass({
     return {
       page: this._getPage(),
       RouteStore: this.gofluxStore('RouteStore').get(),
-      ProductStore: this.gofluxStore('ProductStore').all()
+      ProductStore: this.gofluxStore('ProductStore').all(),
+      CartStore: this.gofluxStore('CartStore').all()
     }
   },
 
@@ -62,6 +63,11 @@ module.exports = React.createClass({
         <h2>ProductStore</h2>
         <pre>
           {JSON.stringify(this.state.ProductStore, null, '  ')}
+        </pre>
+
+        <h2>CartStore</h2>
+        <pre>
+          {JSON.stringify(this.state.CartStore, null, '  ')}
         </pre>
       </div>
     );

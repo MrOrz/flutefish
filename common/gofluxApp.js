@@ -13,12 +13,12 @@ gofluxApp.defineStore('RouteStore', {
 
 gofluxApp.defineStore('ProductStore', {
   SET_PRODUCTS: '_setProductList',
-  SET_PRODUCT: '_setProduct',
-  SET_CART: '_setProductList',
+  SET_PRODUCT: '_updateProduct',
+  SET_CART: '_updateMultipleProducts',
 }, require('./stores/ProductStore'));
 
 gofluxApp.defineStore('CartStore', {
-  SET_CART: '_setCartList',
+  SET_CART: '_setCartList'
 }, require('./stores/CartStore'));
 
 module.exports = gofluxApp;

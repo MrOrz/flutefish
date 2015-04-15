@@ -10,13 +10,13 @@ module.exports = React.createClass({
   ],
 
   _onCartChange: function() {
-    this.setState({cart: this.gofluxStore('CartStore').all()});
+    this.setState(this.getInitialState());
   },
 
   getInitialState: function() {
     return {
-      cart: []
-    }
+      cart: this.gofluxStore('CartStore').all()
+    };
   },
 
   componentDidMount: function() {
@@ -40,9 +40,9 @@ module.exports = React.createClass({
           <ul>{cart.map(function(product) {
             return (
               <li>
-                product.name
+                {product.name}
                 <span>
-                  $product.price
+                  ${product.price}
                 </span>
               </li>
             );
