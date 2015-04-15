@@ -32,9 +32,19 @@ module.exports = React.createClass({
     // handlers often fires after jQuery's handlers. (http://goo.gl/LF3edm)
     // Thus we use jQuery to stop event propagation here.
     //
-    $(React.findDOMNode(this.refs.cartDropdown)).click(function(e){
+    $(
+      React.findDOMNode(this.refs.cartDropdown)
+    ).on('click.SiteHeader', function(e) {
       e.stopPropagation();
     });
+  },
+
+  componentWillUnmount: function() {
+    // Although it is unlikely that SiteHeader will "unmount",
+    // it's a good practice to put a `componentWillUnmount` to undo things
+    // we've done in `componentDidMount`.
+
+    $(React.findDOMNode(this.refs.cartDropdown)).off('.SiteHeader');
   },
 
   render: function() {
