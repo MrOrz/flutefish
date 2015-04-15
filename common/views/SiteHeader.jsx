@@ -1,7 +1,9 @@
 var React = require('react'),
     constants = require('../config/constants'),
+    mixins = require('goflux').mixins,
+
     Link = require('./Link.jsx'),
-    mixins = require('goflux').mixins;
+    CartButton = require('./CartButton.jsx');
 
 module.exports = React.createClass({
   mixins: [
@@ -44,6 +46,8 @@ module.exports = React.createClass({
                 <span>
                   ${product.price}
                 </span>
+
+                <CartButton productId={product.id} />
               </li>
             );
           })}</ul>
