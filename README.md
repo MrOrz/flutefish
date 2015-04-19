@@ -31,6 +31,12 @@ npm install
 npm start
 ```
 
+If you wish to change files and have them automatically recompiled, you may also want to run this in a separate shell window:
+
+```
+npm run watch
+```
+
 ## Omitted (out of scope) webdev issues
 * Persistent database storage
 * Anti-CSRF
