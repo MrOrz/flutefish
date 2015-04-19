@@ -8,7 +8,8 @@ gofluxApp.defineActions('productActions', require('./actions/productActions'));
 gofluxApp.defineActions('cartActions', require('./actions/cartActions'));
 
 gofluxApp.defineStore('RouteStore', {
-  ROUTE_CHANGE: '_onRouteChange'
+  ROUTE_CHANGE: '_onRouteChange',
+  SET_META: '_onSetMeta'
 }, require('./stores/RouteStore'));
 
 gofluxApp.defineStore('ProductStore', {

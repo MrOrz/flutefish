@@ -2,41 +2,6 @@ var router = require('../config/router'),
     constants = require('../config/constants');
 
 module.exports = function(context) {
-
-  // Call data-fetching actions to populate stores with essential data,
-  // then determine page title
-  //
-  function fetchDataAndSetMeta () {
-    var route = context.getStore('RouteStore').get(),
-        promises = [];
-
-    switch (route.name){
-    case 'products':
-      promises.push(context.getActions('productActions').all().then(function() {
-        return {
-          title: '所有商品 :: Flutefish'
-        }
-      }));
-      break;
-
-    case 'product':
-      promises.push(context.getActions('productActions').get(
-        route.params.id
-      ).then(function() {
-        var product = context.getStore('ProductStore').get(route.params.id);
-        return {
-          title: product.name + ' :: Flutefish',
-          ogImage: product.image
-        }
-      }));
-      break;
-    }
-
-    return Promise.all(promises).then(function(resolvedData) {
-      return resolvedData[resolvedData.length - 1]; // last promise = meta
-    });
-  }
-
   return {
     goTo: function(path, poppedState) {
       console.log('Matching route for path', path);
@@ -72,15 +37,21 @@ module.exports = function(context) {
           0, (poppedState && poppedState.scrollPositionBeforePush) || 0
         );
       }
+    },
 
-      return fetchDataAndSetMeta().then(function(meta) {
-        if (constants.IS_BROWSER) {
-          document.title = meta.title;
-        }
-        return meta;
-      });
+    setMeta: function(obj) {
+      obj.pageTitle = obj.title ? obj.title + ' :: Flutefish' : 'Flutefish';
+
+      if (constants.IS_BROWSER) {
+        // Do DOM manipulation here.
+        //
+        document.title = obj.pageTitle;
+      } else {
+        // For server, set meta into stores.
+        //
+        context.dispatch('SET_META', obj);
+      }
     }
   };
 
 };
-

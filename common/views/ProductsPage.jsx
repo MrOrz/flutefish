@@ -1,6 +1,7 @@
 var React = require('react'),
     constants = require('../config/constants'),
     mixins = require('goflux').mixins,
+    resolver = require('../utils/resolver'),
 
     Link = require('./Link.jsx'),
 
@@ -23,6 +24,21 @@ module.exports = React.createClass({
       products: this.gofluxStore('ProductStore').all(),
       idsInCart: this.gofluxStore('CartStore').allIds()
     };
+  },
+
+  componentWillMount: function() {
+    if (this.gofluxStore('ProductStore').hasInitialized()) {
+
+      this.gofluxActions('routeActions').setMeta({
+        title: 'All products'
+      });
+
+    } else {
+      resolver.addPromise(
+        this.gofluxActions('productActions').all()
+      );
+
+    }
   },
 
   render: function() {

@@ -12,7 +12,8 @@ var express = require('express'),
     App = require('../common/views/App.jsx'),
 
     constants = require('../common/config/constants'),
-    gofluxApp = require('../common/gofluxApp');
+    gofluxApp = require('../common/gofluxApp'),
+    resolver = require('../common/utils/resolver');
 
 // Catch all unhandled promise rejections and print error.
 // Ref: https://iojs.org/api/process.html#process_event_unhandledrejection
@@ -63,19 +64,31 @@ app.use('/api', require('./routes/api.js'));
 // Catch-all route
 //
 app.get('*', function(req, res) {
+  var context = gofluxApp.createContext(),
+      app;
 
-  // Invoke route action
-  var context = gofluxApp.createContext();
-  context.getActions('routeActions').goTo(req.path).then(function(meta) {
-    // Create app element & the index wrapper element
+  // First, populate route store
+  //
+  context.getActions('routeActions').goTo(req.path);
+
+  // 1st render, triggers all componentWillMount.
+  app = React.createElement(App, {gofluxContext: context});
+
+  console.log('1st render');
+  React.renderToString(app);
+
+  resolver.resolveAll().then(function() {
+    // All promises added to resolver has been resolved.
+    // Therefore all stores should be populated.
     //
-    var app = React.createElement(App, {gofluxContext: context}),
-        dehydratedStr = JSON.stringify(context.dehydrate());
+
+    console.log('2nd render');
+    var dehydratedStr = JSON.stringify(context.dehydrate()),
+        html = React.renderToString(app);
 
     res.render('index', {
-      meta: meta,
-      html: React.renderToString(app),
-      dehydratedStr: dehydratedStr
+      meta: context.getStore('RouteStore').getMeta(),
+      html: html, dehydratedStr: dehydratedStr
     });
   }).catch(function(reason) {
     if (reason === 'Not found') {
@@ -84,6 +97,8 @@ app.get('*', function(req, res) {
       throw reason;
     }
   });
+
+  resolver.clearPromises(); // Clear promises for the next request
 });
 
 var server = app.listen(constants.PORT, function() {

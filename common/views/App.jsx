@@ -20,7 +20,7 @@ module.exports = React.createClass({
   },
 
   _getPage: function() {
-    var route = this.gofluxStore('RouteStore').get();
+    var route = this.gofluxStore('RouteStore').getRoute();
     switch (route.name){
     case 'products':
       return {

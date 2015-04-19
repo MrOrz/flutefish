@@ -1,6 +1,7 @@
 var React = require('react'),
     constants = require('../config/constants'),
     mixins = require('goflux').mixins,
+    resolver = require('../utils/resolver'),
 
     Link = require('./Link.jsx'),
     CartButton = require('./CartButton.jsx');
@@ -27,8 +28,27 @@ module.exports = React.createClass({
     }
   },
 
+  componentWillMount: function() {
+    var product = this.gofluxStore('ProductStore').get(this.props.productId);
+
+    if (product && product.price) {
+      // Store populated with required data, just set title
+      this.gofluxActions('routeActions').setMeta({
+        title: product.name,
+        ogImage: product.image
+      });
+
+    } else {
+      // store not populated yet, start loading
+
+      resolver.addPromise(
+        this.gofluxActions('productActions').get(this.props.productId)
+      );
+    }
+  },
+
   render: function() {
-    var product = this.state.product;
+    var product = this.state.product || {};
 
     return (
       <div>

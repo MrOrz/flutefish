@@ -11,10 +11,14 @@ module.exports = function(context) {
       // Product ids for "all" list, in display order.
       // Larger websites may have multiple lists of ids like this.
       //
-      orderedIds = [];
+      orderedIds = [],
+
+      hasInitialized = false;
 
   return createEmitter({
     _setSingleProduct: function(product) {
+      hasInitialized = true;
+
       if (products[product.id]) {
         assign(products[product.id], product);
       } else {
@@ -59,6 +63,11 @@ module.exports = function(context) {
     get: function(id) {
       return products[id];
     },
+
+    hasInitialized: function() {
+      return hasInitialized;
+    },
+
     dehydrate: function() {
       return [products, orderedIds];
     },
