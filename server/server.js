@@ -10,7 +10,6 @@ var express = require('express'),
     React = require('react'),
     User = require('./models/user'),
     App = require('../common/views/App.jsx'),
-    ServerIndex = require('./views/index.jsx'),
 
     constants = require('../common/config/constants'),
     gofluxApp = require('../common/gofluxApp');
@@ -27,6 +26,10 @@ process.on('unhandledRejection', function(reason, promise) {
   }
   console.error('[Unhandled Rejection] Promise:', promise);
 });
+
+// view engine setup
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
 
 //
 // Common middlewares
@@ -67,14 +70,13 @@ app.get('*', function(req, res) {
     // Create app element & the index wrapper element
     //
     var app = React.createElement(App, {gofluxContext: context}),
-        dehydratedStr = JSON.stringify(context.dehydrate()),
-        index = React.createElement(ServerIndex, {
-          meta: meta,
-          renderedApp: React.renderToString(app),
-          dehydratedScript: 'var __dehydrated = ' + dehydratedStr + ';'
-        });
+        dehydratedStr = JSON.stringify(context.dehydrate());
 
-    res.send('<!doctype html>' + React.renderToStaticMarkup(index));
+    res.render('index', {
+      meta: meta,
+      html: React.renderToString(app),
+      dehydratedStr: dehydratedStr
+    });
   }).catch(function(reason) {
     if (reason === 'Not found') {
       res.sendStatus(404);
