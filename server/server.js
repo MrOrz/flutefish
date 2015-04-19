@@ -5,13 +5,14 @@
 require('babel/register');
 
 var express = require('express'),
-    User = require('./models/user'),
     app = express(),
-    constants = require('../common/config/constants'),
 
     React = require('react'),
+    User = require('./models/user'),
     App = require('../common/views/App.jsx'),
     ServerIndex = require('./views/index.jsx'),
+
+    constants = require('../common/config/constants'),
     gofluxApp = require('../common/gofluxApp');
 
 // Catch all unhandled promise rejections and print error.
@@ -30,11 +31,11 @@ process.on('unhandledRejection', function(reason, promise) {
 //
 // Common middlewares
 //
+app.use(require('serve-favicon')(__dirname + '/../client/favicon.png'));
+app.use(require('morgan')('dev'));
 app.use(express.static('client'));
 app.use(require('cookie-parser')(process.env.COOKIE_SECRET || 'cookie secret'));
-
-// Parses post requests in application/json
-app.use(require('body-parser').json());
+app.use(require('body-parser').json()); // Post requests in application/json
 
 //
 // Authentication middleware. Populates req.user and sets cookie.

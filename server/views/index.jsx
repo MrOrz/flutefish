@@ -22,6 +22,7 @@ module.exports = React.createClass({
         <meta charSet="UTF-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="shortcut icon" href="/favicon.png" />
         <title>{this.props.meta.title}</title>
         <link href="/vendor/bootstrap.min.css" rel="stylesheet" />
         <link href="/css/client.css" rel="stylesheet" />
