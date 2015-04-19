@@ -31,21 +31,28 @@ module.exports = React.createClass({
   },
 
   getInitialState: function() {
-    var idsInCart = this.gofluxStore('CartStore').allIds();
+    var cartStore = this.gofluxStore('CartStore');
     return {
-      isInCart: idsInCart.indexOf(this.props.productId) !== -1
+      isLoading: cartStore.isLoading(),
+      isInCart: cartStore.allIds().indexOf(this.props.productId) !== -1
     };
   },
 
   render: function() {
-    if (this.state.isInCart) {
+    if (this.state.isLoading) {
+      return (
+        <button type="button" disabled>
+          Loading...
+        </button>
+      );
+    } else if (this.state.isInCart) {
       return (
         <button type="button"
                 onClick={this._removeFromCart}>
           從購物車移除
         </button>
       );
-    }else {
+    } else {
       return (
         <button type="button"
               onClick={this._addToCart}>

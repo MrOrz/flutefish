@@ -14,7 +14,7 @@ React.render((
   <App gofluxContext={context} />
 ), document.getElementById('react-root'));
 
-// Fetch cart
+// Fetch cart, which requires cookie.
 //
 context.getActions('cartActions').all();
 

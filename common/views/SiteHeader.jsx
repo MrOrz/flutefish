@@ -16,8 +16,10 @@ module.exports = React.createClass({
   },
 
   getInitialState: function() {
+    var cartStore = this.gofluxStore('CartStore')
     return {
-      cart: this.gofluxStore('CartStore').all()
+      cart: cartStore.all(),
+      isCartLoading: cartStore.isLoading()
     };
   },
 

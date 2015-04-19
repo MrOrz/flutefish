@@ -6,16 +6,22 @@ module.exports = function(context) {
 
   // Product ids for "cart", in display order.
   //
-  var orderedIds = [];
+  var orderedIds = [],
+      isLoading = true;
 
   return createEmitter({
     _onCartLoading: function() {
+      isLoading = true;
+      this.emit(constants.CHANGE);
+    },
+
     _onSetCart: function(products) {
 
       // Wait for product store to populate the cart product data
       context.waitFor(['ProductStore']);
 
       orderedIds = products.map(function(product) {return product.id;});
+      isLoading = false;
 
       this.emit(constants.CHANGE);
     },
@@ -30,6 +36,10 @@ module.exports = function(context) {
 
     allIds: function() {
       return orderedIds;
+    },
+
+    isLoading: function() {
+      return isLoading;
     },
 
     dehydrate: function() {

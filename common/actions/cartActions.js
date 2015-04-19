@@ -4,6 +4,7 @@ var fetch = require('../utils/fetch'),
 module.exports = function(context) {
   return {
     all: function() {
+      context.dispatch('CART_LOADING');
       return fetch('/api/cart').then(function(res) {
         return res.json();
       }).then(function(data) {
