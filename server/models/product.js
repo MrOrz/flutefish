@@ -5,11 +5,30 @@
 var assert = require('assert'),
     products = [
       {
-        id: 'mola', name: 'Mola', thumbnail: '', price: 890, image: ''
+        id: 'mola', name: 'Mola', price: 890,
+        thumbnail: 'http://placehold.it/300x300',
+        image: 'http://placehold.it/500x500'
       },
       {
-        id: 'mola-mola', name: 'Mola Mola', thumbnail: '', price: 799, image: ''
-      }
+        id: 'mola-mola', name: 'Mola Mola', price: 799,
+        thumbnail: 'http://placehold.it/300x300',
+        image: 'http://placehold.it/500x500'
+      },
+      {
+        id: 'flutefish', name: 'Flutefish', price: 690,
+        thumbnail: 'http://placehold.it/300x300',
+        image: 'http://placehold.it/500x500'
+      },
+      {
+        id: 'flute', name: 'Flute ∞', price: 1099,
+        thumbnail: 'http://placehold.it/300x300',
+        image: 'http://placehold.it/500x500'
+      },
+      {
+        id: 'flute2', name: 'Flute ∞^2', price: 1099,
+        thumbnail: 'http://placehold.it/300x300',
+        image: 'http://placehold.it/500x500'
+      },
     ];
 
 /**
