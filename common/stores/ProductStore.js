@@ -28,12 +28,12 @@ module.exports = function(context) {
       }.bind(this));
     },
 
-    _updateProduct: function(product) {
+    _onSetProduct: function(product) {
       this._setSingleProduct(product);
       this.emit(constants.CHANGE);
     },
 
-    _setProductList: function(newProducts) {
+    _onSetProducts: function(newProducts) {
       if (newProducts) {
 
         this._setProducts(newProducts)
@@ -44,7 +44,7 @@ module.exports = function(context) {
       }
     },
 
-    _updateMultipleProducts: function(newProducts) {
+    _onSetCart: function(newProducts) {
       if (newProducts) {
         this._setProducts(newProducts);
         this.emit(constants.CHANGE);

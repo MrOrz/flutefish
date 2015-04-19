@@ -5,7 +5,7 @@ module.exports = function(context) {
   var currentRoute;
 
   return createEmitter({
-    _setRoute: function(route) {
+    _onRouteChange: function(route) {
       currentRoute = route;
       this.emit(constants.CHANGE);
     },

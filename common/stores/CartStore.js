@@ -9,7 +9,8 @@ module.exports = function(context) {
   var orderedIds = [];
 
   return createEmitter({
-    _setCartList: function(products) {
+    _onCartLoading: function() {
+    _onSetCart: function(products) {
 
       // Wait for product store to populate the cart product data
       context.waitFor(['ProductStore']);

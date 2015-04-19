@@ -8,17 +8,18 @@ gofluxApp.defineActions('productActions', require('./actions/productActions'));
 gofluxApp.defineActions('cartActions', require('./actions/cartActions'));
 
 gofluxApp.defineStore('RouteStore', {
-  ROUTE_CHANGE: '_setRoute'
+  ROUTE_CHANGE: '_onRouteChange'
 }, require('./stores/RouteStore'));
 
 gofluxApp.defineStore('ProductStore', {
-  SET_PRODUCTS: '_setProductList',
-  SET_PRODUCT: '_updateProduct',
-  SET_CART: '_updateMultipleProducts',
+  SET_PRODUCTS: '_onSetProducts',
+  SET_PRODUCT: '_onSetProduct',
+  SET_CART: '_onSetCart',
 }, require('./stores/ProductStore'));
 
 gofluxApp.defineStore('CartStore', {
-  SET_CART: '_setCartList'
+  CART_LOADING: '_onCartLoading',
+  SET_CART: '_onSetCart'
 }, require('./stores/CartStore'));
 
 module.exports = gofluxApp;
