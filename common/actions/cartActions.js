@@ -1,10 +1,10 @@
-var fetch = require('isomorphic-fetch'),
+var fetch = require('../utils/fetch'),
     constants = require('../config/constants');
 
 module.exports = function(context) {
   return {
     all: function() {
-      return fetch(constants.API_HOST + '/api/cart').then(function(res) {
+      return fetch('/api/cart').then(function(res) {
         return res.json();
       }).then(function(data) {
         context.dispatch('SET_CART', data);
@@ -15,7 +15,7 @@ module.exports = function(context) {
       var header = new Headers();
       header.append('Content-Type', 'application/json');
 
-      return fetch(constants.API_HOST + '/api/cart/', {
+      return fetch('/api/cart/', {
         method: 'post',
         headers: header,
         body: JSON.stringify({productId: productId})
@@ -27,7 +27,7 @@ module.exports = function(context) {
     },
 
     remove: function(productId) {
-      return fetch(constants.API_HOST + '/api/cart/' + productId, {
+      return fetch('/api/cart/' + productId, {
         method: 'delete'
       }).then(function(res) {
         return res.json()
