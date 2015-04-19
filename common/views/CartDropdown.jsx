@@ -24,7 +24,7 @@ module.exports = React.createClass({
 
   componentDidMount: function() {
     // Initialize dropdown
-    $(React.findDOMNode(this)).dropdown();
+    $(React.findDOMNode(this.refs.Toggle)).dropdown();
   },
 
   render: function() {
