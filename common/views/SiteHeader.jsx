@@ -24,27 +24,6 @@ module.exports = React.createClass({
   componentDidMount: function() {
     // Initialize dropdown
     $(React.findDOMNode(this.refs.cartDropdownToggle)).dropdown();
-
-    // We do not hope cart dropdown to be hidden on dropdown click,
-    // thus we intercept click here.
-    //
-    // Note that because React always listens at root element, React event
-    // handlers often fires after jQuery's handlers. (http://goo.gl/LF3edm)
-    // Thus we use jQuery to stop event propagation here.
-    //
-    $(
-      React.findDOMNode(this.refs.cartDropdown)
-    ).on('click.SiteHeader', function(e) {
-      e.stopPropagation();
-    });
-  },
-
-  componentWillUnmount: function() {
-    // Although it is unlikely that SiteHeader will "unmount",
-    // it's a good practice to put a `componentWillUnmount` to undo things
-    // we've done in `componentDidMount`.
-
-    $(React.findDOMNode(this.refs.cartDropdown)).off('.SiteHeader');
   },
 
   render: function() {
@@ -89,14 +68,14 @@ module.exports = React.createClass({
       <header className="SiteHeader">
         <div className="container SiteHeader-container">
           <h1 className="SiteHeader-logo">Flutefish</h1>
-          <div className="dropdown">
+          <div className="dropdown" ref="cartDropdown">
             <button type="button" data-toggle="dropdown" aria-haspopup="true"
              aria-expanded="false" ref="cartDropdownToggle" id="dLabel">
               ${totalPriceInCart}
             </button>
 
             <div className="dropdown-menu SiteHeader-dropdownMenu" role="menu"
-              aria-labelledby="dLabel" ref="cartDropdown">
+              aria-labelledby="dLabel">
               {dropdownContent}
             </div>
           </div>
