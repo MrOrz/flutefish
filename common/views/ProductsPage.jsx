@@ -46,12 +46,12 @@ module.exports = React.createClass({
     var productElems = this.state.products.map(function(product, idx) {
       return (
         <li className="Grid-cell col-xs-12 col-md-3">
-          <figure className="ProductPage-cell" key={product.id}>
+          <figure className="ProductsPage-cell" key={product.id}>
             <Link to="product" params={{id: product.id}}>
-              <img className="ProductPage-image" src={product.thumbnail}
+              <img className="ProductsPage-image" src={product.thumbnail}
                    alt={product.name} />
             </Link>
-            <figcaption className="ProductPage-caption">
+            <figcaption className="ProductsPage-caption">
               <Link to="product" params={{id: product.id}}>{product.name}</Link>
               <CartButton className="CartButton--iconOnly btn-lg" productId={product.id} />
             </figcaption>
@@ -61,7 +61,7 @@ module.exports = React.createClass({
     });
 
     return (
-      <div className="Page ProductPage container">
+      <div className="Page ProductsPage container">
         <ul className="Grid row">
           {productElems}
         </ul>

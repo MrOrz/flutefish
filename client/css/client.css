@@ -9,6 +9,10 @@
   transform: translateZ(0); /* create composition layer */
 }
 
+.SiteHeader.is-transparent {
+  background: transparent;
+}
+
 .SiteHeader-container {
   display: flex;
   align-items: center;
@@ -133,12 +137,14 @@
 
 .CartButton {
   background: transparent;
-  color: #E55A54;
+  color: rgba(255,255,255,.87);
+  border: 2px solid rgba(255,255,255,.87);
 }
 
 .CartButton:hover, .CartButton:active, .CartButton:focus {
-  color: #E55A54;
+  color: #fff;
   outline: 0;
+  background: rgba(255,255,255,.13);
 }
 
 .CartButton::before {
@@ -219,15 +225,15 @@ ul.Grid {
   padding: 0 8px 16px;
 }
 
-.ProductPage-cell {
+.ProductsPage-cell {
   position: relative; /*  For caption */
 }
 
-.ProductPage-image {
+.ProductsPage-image {
   width: 100%;
 }
 
-.ProductPage-caption {
+.ProductsPage-caption {
   position: absolute;
   left: 0;
   right: 0;
@@ -240,13 +246,50 @@ ul.Grid {
   background: rgba(0,0,0,.56);
 }
 
-.ProductPage-caption > a {
+.ProductsPage-caption > a {
   margin-right: auto; /* push cartButton all the way to the right */
   color: rgba(255,255,255,.87);
 }
 
-.ProductPage-caption > .CartButton {
+.ProductsPage-caption > .CartButton {
   color: rgba(255,255,255,.87);
+}
+
+.ProductPage {
+  display: flex;
+  height: 100vh;
+  flex-flow: column;
+}
+
+@media screen and (min-width: 768px) {
+  .ProductPage {
+    flex-flow: row;
+  }
+}
+
+.ProductPage-image, .ProductPage-text {
+  flex: 1;
+}
+
+.ProductPage-image {
+  background-size: cover;
+  background-position: center center;
+}
+
+.ProductPage-text {
+  display: flex; /* center text vertically */
+  flex-flow: column;
+  justify-content: center;
+  padding-left: 16px;
+
+  background: #E55A54;
+  color: rgba(255,255,255,.87);
+}
+
+@media screen and (min-width: 768px) {
+  .ProductPage-text {
+    padding-left: 40px;
+  }
 }
 
 @-webkit-keyframes fade-in {

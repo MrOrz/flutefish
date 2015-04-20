@@ -51,11 +51,15 @@ module.exports = React.createClass({
     var product = this.state.product || {};
 
     return (
-      <div>
-        <Link to="products">&lt; Back</Link>
-        <h2>品名：{product.name}</h2>
-        <p>價格：{product.price}</p>
-        <p><CartButton productId={product.id} /></p>
+      <div className="ProductPage">
+        <div className="ProductPage-image"
+             style={{backgroundImage: 'url('+product.image+')'}}>
+        </div>
+        <div className="ProductPage-text">
+          <h2>{product.name}</h2>
+          <p>TWD {product.price}</p>
+          <p><CartButton className="btn-lg" productId={product.id} /></p>
+        </div>
       </div>
     );
   }
