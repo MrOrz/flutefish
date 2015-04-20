@@ -75,8 +75,14 @@ app.get('*', function(req, res) {
   app = React.createElement(App, {gofluxContext: context});
 
   console.log('1st render');
-  React.renderToString(app);
 
+  // clear promise --> render --> get a promise that resolves after all promises
+  //
+  // 3 synchronous method calls in a row to prevent intervention from other
+  // requests.
+  //
+  resolver.clearPromises();
+  React.renderToString(app);
   resolver.resolveAll().then(function() {
     // All promises added to resolver has been resolved.
     // Therefore all stores should be populated.
@@ -84,7 +90,7 @@ app.get('*', function(req, res) {
 
     console.log('2nd render');
     var dehydratedStr = JSON.stringify(context.dehydrate()),
-        html = React.renderToString(app);
+        html = React.renderToString(app); // Also collects promises, but ignored
 
     res.render('index', {
       meta: context.getStore('RouteStore').getMeta(),
@@ -98,7 +104,6 @@ app.get('*', function(req, res) {
     }
   });
 
-  resolver.clearPromises(); // Clear promises for the next request
 });
 
 var server = app.listen(constants.PORT, function() {

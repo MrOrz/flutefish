@@ -16,6 +16,11 @@ exports.clearPromises = function() {
   promises.length = 0;
 };
 
+// Promise.all() returns a new promise that resolves after the resolution of
+// all collected promises.
+// After calling resolveAll(), mutating `promises` array (e.g. clearing it)
+// would not affect the promise returned by resolveAll.
+//
 exports.resolveAll = function() {
   return Promise.all(promises);
 };
