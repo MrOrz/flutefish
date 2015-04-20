@@ -39,24 +39,31 @@ module.exports = React.createClass({
   },
 
   render: function() {
+    var className = "CartButton btn "
+
+    if(this.props.className) {
+      className += this.props.className + ' '
+    }
+
     if (this.state.isLoading) {
       return (
-        <button type="button" disabled>
-          Loading...
+        <button type="button"
+                className={className + 'CartButton--loading'}
+                disabled>
         </button>
       );
     } else if (this.state.isInCart) {
       return (
         <button type="button"
+                className={className + 'CartButton--remove'}
                 onClick={this._removeFromCart}>
-          從購物車移除
         </button>
       );
     } else {
       return (
         <button type="button"
-              onClick={this._addToCart}>
-          加入購物車
+                className={className + 'CartButton--add'}
+                onClick={this._addToCart}>
         </button>
       );
     }

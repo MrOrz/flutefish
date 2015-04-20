@@ -3,7 +3,8 @@ var React = require('react'),
     constants = require('../config/constants'),
     resolver = require('../utils/resolver'),
 
-    CartButton = require('./CartButton.jsx');
+    CartButton = require('./CartButton.jsx'),
+    Link = require('./Link.jsx');
 
 module.exports = React.createClass({
   mixins: [
@@ -37,58 +38,63 @@ module.exports = React.createClass({
   render: function() {
 
     var cart = this.state.cart,
-        totalPriceInCart = 0, dropdownContent;
+        totalPriceInCart, dropdownContent, buttonContent;
 
     if (this.state.isCartLoading) {
       dropdownContent = (<span>Loading</span>);
-      totalPriceInCart = 'Loading'
-
-    }else if (cart.length === 0) {
-      dropdownContent = (<span>購物車是空的喔！</span>);
+      buttonContent = 'Loading'
 
     } else {
       totalPriceInCart = cart.reduce(function(sum, product) {
         return sum + product.price
-      }, 0)
+      }, 0);
 
-      dropdownContent = [
-        (
-          <ul key="list">{cart.map(function(product) {
-            return (
-              <li key={product.id}>
-                {product.name}
-                <span>
-                  ${product.price}
-                </span>
+      buttonContent = totalPriceInCart + ' TWD';
 
-                <CartButton productId={product.id} />
-              </li>
-            );
-          })}</ul>
-        ),
-        (<p key="total">總計 <span>{totalPriceInCart}</span></p>),
-        (
-          <p key="checkout">
-            <button className="btn btn-large btn-block btn-primary"
-              type="button">
-              結賬去！
-            </button>
-          </p>
-        )
-      ];
+      if (cart.length === 0) {
+        dropdownContent = 'The cart is empty.'
+      } else {
+        dropdownContent = [
+          (
+            <ul key="list">{cart.map(function(product) {
+              return (
+                <li key={product.id}>
+                  <CartButton productId={product.id} className="CartButton--iconOnly btn-xs"/>
+                  <Link to="product" params={{id: product.id}}>{product.name}</Link>
+                  <span className="pull-right">
+                    ${product.price}
+                  </span>
+                </li>
+              );
+            })}</ul>
+          ),
+          (<hr key="hr" />),
+          (<p key="total">Total <span className="pull-right">$ {totalPriceInCart}</span></p>),
+          (
+            <p key="checkout">
+              <button className="CartDropdown-checkout btn btn-large btn-block"
+                type="button">
+                Checkout
+              </button>
+            </p>
+          )
+        ];
+      }
     }
 
     var className = this.props.className || '';
-    className += ' dropdown';
+    className += ' dropdown CartDropdown';
 
     return (
       <div className={className}>
-        <button type="button" data-toggle="dropdown" aria-haspopup="true"
+
+        <button className="CartDropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
          aria-expanded="false" ref="Toggle" id="cart-dropdown">
-          ${totalPriceInCart}
+          <span className="CartDropdown-cartIcon glyphicon glyphicon-shopping-cart" aria-hidden="true"/>
+          {buttonContent}
         </button>
 
-        <div className="dropdown-menu SiteHeader-dropdownMenu" role="menu"
+        <div className="dropdown-menu CartDropdown-menu" role="menu"
           aria-labelledby="cart-dropdown">
           {dropdownContent}
         </div>

@@ -1,15 +1,129 @@
+.SiteHeader {
+  background: #E55A54;
+  color: rgba(255,255,255,0.87);
+}
+
 .SiteHeader-container {
   display: flex;
+  align-items: center;
+  height: 56px;
 }
 
 .SiteHeader-logo {
+  background: url(../images/logo.svg) no-repeat;
+  width: 157px;
+  height: 44px;
+
+  /* squish text */
+  font: 0/0 serif;
+
+  /* cancel out h1's margin */
+  margin: 0;
+
+  /* Push other things to the right */
   margin-right: auto;
 }
 
-.SiteHeader-dropdownMenu {
+.CartDropdown {
+  /* Same height as SiteHeader */
+  height: 100%;
+}
+
+
+.CartDropdown-toggle {
+  /* Remove button style */
+  border: 0;
+  background: transparent;
+  display: block;
+  height: 100%;
+}
+
+.CartDropdown-toggle:focus {
+  outline: 0;
+}
+
+.CartDropdown-toggle[aria-expanded=true] {
+  background: #FFA4A1;
+}
+
+.CartDropdown-cartIcon {
+  margin-right: 0.5em;
+}
+
+.CartDropdown-menu {
+  /* Adjust twitter bootstrap's menu position */
   right: 0;
   left: auto;
   width: 200px;
-  padding: 8px;
   max-width: 80vw;
+  margin-top: 0;
+
+  /* Custom style */
+  border: 0;
+  border-radius: 0;
+  background: #FFA4A1;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  padding: 8px;
+}
+
+.CartDropdown-menu ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.CartDropdown-checkout {
+  border: 2px solid #fff;
+  color: #fff;
+  background: transparent;
+  border-radius: 2px;
+}
+
+.CartDropdown-checkout:hover {
+  color: #fff;
+  background: #E55A54;
+  border-color: transparent;
+}
+
+.CartButton {
+  background: #E55A54;
+  border-radius: 2px;
+  color: #fff;
+}
+
+.CartButton:hover, .CartButton:active, .CartButton:focus {
+  color: rgba(255, 255, 255, .56);
+}
+
+.CartButton::before {
+  font-family: 'Glyphicons Halflings';
+  margin-right: 0.5em;
+}
+
+.CartButton--loading::after {
+  content: 'Loading';
+}
+
+.CartButton--remove::before {
+  content: '\2212'; /* glyphicon-minus */
+}
+
+.CartButton--remove::after {
+  content: 'Remove from cart';
+}
+
+.CartButton--add::before {
+  content: "\2b"; /* glyphicon-plus */
+}
+
+.CartButton--add::after {
+  content: 'Add to cart';
+}
+
+.CartButton--iconOnly::before {
+  margin-right: 0;
+}
+
+.CartButton--iconOnly::after {
+  display: none;
 }
