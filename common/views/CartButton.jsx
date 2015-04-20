@@ -48,21 +48,21 @@ module.exports = React.createClass({
     if (this.state.isLoading) {
       return (
         <button type="button"
-                className={className + 'CartButton--loading'}
+                className={className + 'is-loading'}
                 disabled>
         </button>
       );
     } else if (this.state.isInCart) {
       return (
         <button type="button"
-                className={className + 'CartButton--remove'}
+                className={className + 'is-added'}
                 onClick={this._removeFromCart}>
         </button>
       );
     } else {
       return (
         <button type="button"
-                className={className + 'CartButton--add'}
+                className={className + 'is-notAdded'}
                 onClick={this._addToCart}>
         </button>
       );
