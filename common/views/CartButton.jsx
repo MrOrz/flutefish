@@ -39,9 +39,9 @@ module.exports = React.createClass({
   },
 
   render: function() {
-    var className = "CartButton btn "
+    var className = 'CartButton btn ';
 
-    if(this.props.className) {
+    if (this.props.className) {
       className += this.props.className + ' '
     }
 

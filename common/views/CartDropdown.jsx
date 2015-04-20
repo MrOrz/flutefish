@@ -59,8 +59,11 @@ module.exports = React.createClass({
             <ul key="list">{cart.map(function(product) {
               return (
                 <li key={product.id}>
-                  <CartButton productId={product.id} className="CartButton--iconOnly btn-xs"/>
-                  <Link to="product" params={{id: product.id}}>{product.name}</Link>
+                  <CartButton productId={product.id}
+                              className="CartButton--iconOnly btn-xs"/>
+                  <Link to="product" params={{id: product.id}}>
+                    {product.name}
+                  </Link>
                   <span className="pull-right">
                     ${product.price}
                   </span>
@@ -69,7 +72,11 @@ module.exports = React.createClass({
             })}</ul>
           ),
           (<hr key="hr" />),
-          (<p key="total">Total <span className="pull-right">$ {totalPriceInCart}</span></p>),
+          (
+            <p key="total">
+              Total <span className="pull-right">$ {totalPriceInCart}</span>
+            </p>
+          ),
           (
             <p key="checkout">
               <button className="CartDropdown-checkout btn btn-large btn-block"
@@ -88,9 +95,12 @@ module.exports = React.createClass({
     return (
       <div className={className}>
 
-        <button className="CartDropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
-         aria-expanded="false" ref="Toggle" id="cart-dropdown">
-          <span className="CartDropdown-cartIcon glyphicon glyphicon-shopping-cart" aria-hidden="true"/>
+        <button className="CartDropdown-toggle" type="button"
+                data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false" ref="Toggle" id="cart-dropdown">
+          <span
+            className="CartDropdown-cartIcon glyphicon glyphicon-shopping-cart"
+            aria-hidden="true"/>
           {buttonContent}
         </button>
 
