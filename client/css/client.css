@@ -42,17 +42,23 @@
 .CartDropdown-toggle {
   /* Remove button style */
   border: 0;
-  background: transparent;
+  background-color: transparent;
   display: block;
   height: 100%;
+
+  transition-property: background-color, color, box-shadow;
+  transition-duration: .2s;
 }
 
 .CartDropdown-toggle:focus {
   outline: 0;
 }
 
+/* [aria-expanded=true] by by bootstrap js */
 .CartDropdown-toggle[aria-expanded=true] {
-  background: #FFA4A1;
+  background-color: #fff;
+  color: #E55A54;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
 .CartDropdown-cartIcon {
@@ -63,35 +69,66 @@
   /* Adjust twitter bootstrap's menu position */
   right: 0;
   left: auto;
-  width: 200px;
-  max-width: 80vw;
+  width: 75vw;
   margin-top: 0;
 
   /* Custom style */
   border: 0;
   border-radius: 0;
-  background: #FFA4A1;
+  border-left-bottom-radius: 2px;
+  border-right-bottom-radius: 2px;
+  background: #fff;
   box-shadow: none;
   -webkit-box-shadow: none;
-  padding: 8px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  color: rgba(0,0,0,.87);
+
+  -webkit-animation: fade-in .2s;
+}
+
+@media screen and (min-width: 767px) {
+  .CartDropdown-menu {
+    width: 33vw;
+  }
+}
+
+.CartDropdown-menu p, .CartDropdown-menu li {
+  line-height: 32px;
+  margin-bottom: 0;
 }
 
 .CartDropdown-menu ul {
   list-style: none;
   padding-left: 0;
+  margin-bottom: 0;
+}
+
+.CartDropdown-menu a {
+  color: #E55A54;
+}
+
+.CartDropdown-menu hr {
+  margin: 16px 0;
+}
+
+.CartDropdown-remove {
+  background: transparent;
+  color: rgba(0,0,0,.18);
+}
+
+.CartDropdown-remove:hover {
+  color: rgba(0,0,0,.56);
 }
 
 .CartDropdown-checkout {
-  border: 2px solid #fff;
-  color: #fff;
-  background: transparent;
-  border-radius: 2px;
+  margin-top: 16px;
+  color: rgba(255,255,255,.87);
+  background: #E55A54;
 }
 
 .CartDropdown-checkout:hover {
-  color: #fff;
-  background: #E55A54;
-  border-color: transparent;
+  color: rgba(255,255,255,.56);
 }
 
 .CartButton {
@@ -210,6 +247,11 @@ ul.Grid {
 
 .ProductPage-caption > .CartButton {
   color: rgba(255,255,255,.87);
+}
+
+@-webkit-keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @-webkit-keyframes zoom-in {

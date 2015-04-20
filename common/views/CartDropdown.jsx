@@ -16,6 +16,10 @@ module.exports = React.createClass({
     this.setState(this.getInitialState());
   },
 
+  _removeFromCart: function(productId) {
+    this.gofluxActions('cartActions').remove(productId);
+  },
+
   getInitialState: function() {
     var cartStore = this.gofluxStore('CartStore')
     return {
@@ -59,17 +63,19 @@ module.exports = React.createClass({
             <ul key="list">{cart.map(function(product) {
               return (
                 <li key={product.id}>
-                  <CartButton productId={product.id}
-                              className="CartButton--iconOnly btn-xs"/>
                   <Link to="product" params={{id: product.id}}>
                     {product.name}
                   </Link>
+                  <button className="btn btn-sm CartDropdown-remove"
+                          onClick={this._removeFromCart.bind(this, product.id)}>
+                    <span className="glyphicon glyphicon-remove" />
+                  </button>
                   <span className="pull-right">
-                    ${product.price}
+                    $ {product.price}
                   </span>
                 </li>
               );
-            })}</ul>
+            }.bind(this))}</ul>
           ),
           (<hr key="hr" />),
           (
@@ -104,7 +110,7 @@ module.exports = React.createClass({
           {buttonContent}
         </button>
 
-        <div className="dropdown-menu CartDropdown-menu" role="menu"
+        <div className="dropdown-menu CartDropdown-menu fade in" role="menu"
           aria-labelledby="cart-dropdown">
           {dropdownContent}
         </div>
