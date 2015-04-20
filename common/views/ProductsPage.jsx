@@ -50,7 +50,7 @@ module.exports = React.createClass({
           <CartButton productId={product.id} />
         </li>
       );
-    }.bind(this));
+    });
 
     return (
       <div>

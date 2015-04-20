@@ -32,7 +32,7 @@ module.exports = React.createClass({
     var cart = this.state.cart,
         totalPriceInCart = 0, dropdownContent;
 
-    if(this.state.isCartLoading) {
+    if (this.state.isCartLoading) {
       dropdownContent = (<span>Loading</span>);
       totalPriceInCart = 'Loading'
 
@@ -71,8 +71,8 @@ module.exports = React.createClass({
       ];
     }
 
-    var className = this.props.className || "";
-    className += " dropdown";
+    var className = this.props.className || '';
+    className += ' dropdown';
 
     return (
       <div className={className}>
