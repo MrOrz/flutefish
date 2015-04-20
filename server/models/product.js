@@ -6,28 +6,28 @@ var assert = require('assert'),
     products = [
       {
         id: 'mola', name: 'Mola', price: 890,
-        thumbnail: 'http://placehold.it/300x300',
-        image: 'http://placehold.it/500x500'
+        thumbnail: 'http://placehold.it/320x320',
+        image: 'http://placehold.it/600x600'
       },
       {
         id: 'mola-mola', name: 'Mola Mola', price: 799,
-        thumbnail: 'http://placehold.it/300x300',
-        image: 'http://placehold.it/500x500'
+        thumbnail: 'http://placehold.it/320x320',
+        image: 'http://placehold.it/600x600'
       },
       {
         id: 'flutefish', name: 'Flutefish', price: 690,
-        thumbnail: 'http://placehold.it/300x300',
-        image: 'http://placehold.it/500x500'
+        thumbnail: 'http://placehold.it/320x320',
+        image: 'http://placehold.it/600x600'
       },
       {
         id: 'flute', name: 'Flute ∞', price: 1099,
-        thumbnail: 'http://placehold.it/300x300',
-        image: 'http://placehold.it/500x500'
+        thumbnail: 'http://placehold.it/320x320',
+        image: 'http://placehold.it/600x600'
       },
       {
         id: 'flute2', name: 'Flute ∞^2', price: 1099,
-        thumbnail: 'http://placehold.it/300x300',
-        image: 'http://placehold.it/500x500'
+        thumbnail: 'http://placehold.it/320x320',
+        image: 'http://placehold.it/600x600'
       },
     ];
 
