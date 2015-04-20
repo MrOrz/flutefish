@@ -2,7 +2,14 @@ var createEmitter = require('../utils/createEmitter'),
     constants = require('../config/constants');
 
 module.exports = function(context) {
-  var currentRoute, meta = {};
+
+  // Routr route object
+  //
+  var currentRoute,
+
+      // Metadata for current webpage, like pageTitle, ogImage, etc.
+      //
+      meta = {};
 
   return createEmitter({
     _onRouteChange: function(route) {

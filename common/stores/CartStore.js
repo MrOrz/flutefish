@@ -6,7 +6,11 @@ module.exports = function(context) {
 
   // Product ids for "cart", in display order.
   //
-  var orderedIds = [],
+  var cartProductIds = [],
+
+      // If we are currently fetching cart from server.
+      // Default to true so that it looks like its loading at first.
+      //
       isLoading = true;
 
   return createEmitter({
@@ -20,7 +24,7 @@ module.exports = function(context) {
       // Wait for product store to populate the cart product data
       context.waitFor(['ProductStore']);
 
-      orderedIds = products.map(function(product) {return product.id;});
+      cartProductIds = products.map(function(product) {return product.id;});
       isLoading = false;
 
       this.emit(constants.CHANGE);
@@ -29,13 +33,13 @@ module.exports = function(context) {
     all: function() {
       var productStore = context.getStore('ProductStore');
 
-      return orderedIds.map(function(id) {
+      return cartProductIds.map(function(id) {
         return productStore.get(id);
       });
     },
 
     allIds: function() {
-      return orderedIds;
+      return cartProductIds;
     },
 
     isLoading: function() {
@@ -43,11 +47,11 @@ module.exports = function(context) {
     },
 
     dehydrate: function() {
-      return orderedIds;
+      return cartProductIds;
     },
 
     rehydrate: function(state) {
-      orderedIds = state;
+      cartProductIds = state;
     }
   });
 };

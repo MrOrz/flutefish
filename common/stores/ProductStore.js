@@ -9,21 +9,29 @@ module.exports = function(context) {
   var products = {},
 
       // Product ids for "all" list, in display order.
-      // Larger websites may have multiple lists of ids like this.
       //
-      orderedIds = [],
+      allProductIds = [],
 
+      // If any data is populated in store.
+      // React components can check this before it make requests to API.
+      //
       hasInitialized = false;
 
   return createEmitter({
     _setSingleProduct: function(product) {
-      hasInitialized = true;
+      // Given a productInstance {id: productId, props...},
+      // put it in the productId -> productInstance map.
+      //
 
       if (products[product.id]) {
+        // Product already exists, just update
+        //
         assign(products[product.id], product);
       } else {
         products[product.id] = product;
       }
+
+      hasInitialized = true;
     },
 
     _setProducts: function(newProducts) {
@@ -41,8 +49,8 @@ module.exports = function(context) {
       if (newProducts) {
 
         this._setProducts(newProducts)
-        // Update orderedIds.
-        orderedIds = newProducts.map(function(product) {return product.id});
+        // Update allProductIds.
+        allProductIds = newProducts.map(function(product) {return product.id});
 
         this.emit(constants.CHANGE);
       }
@@ -56,7 +64,7 @@ module.exports = function(context) {
     },
 
     all: function() {
-      return orderedIds.map(function(id) {
+      return allProductIds.map(function(id) {
         return products[id];
       });
     },
@@ -69,11 +77,11 @@ module.exports = function(context) {
     },
 
     dehydrate: function() {
-      return [products, orderedIds];
+      return [products, allProductIds];
     },
     rehydrate: function(state) {
       products = state[0];
-      orderedIds = state[1];
+      allProductIds = state[1];
     }
   });
 };
