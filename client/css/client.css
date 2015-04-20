@@ -1,15 +1,27 @@
 .SiteHeader {
   background: #E55A54;
   color: rgba(255,255,255,0.87);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  transform: translateZ(0); /* create composition layer */
 }
 
 .SiteHeader-container {
   display: flex;
   align-items: center;
   height: 56px;
+  padding: 0 16px; /* gutter */
 }
 
 .SiteHeader-logo {
+  /* Push other things to the right */
+  margin-right: auto;
+}
+
+.SiteHeader-logo > h1 {
   background: url(../images/logo.svg) no-repeat;
   width: 157px;
   height: 44px;
@@ -19,9 +31,6 @@
 
   /* cancel out h1's margin */
   margin: 0;
-
-  /* Push other things to the right */
-  margin-right: auto;
 }
 
 .CartDropdown {
@@ -86,13 +95,13 @@
 }
 
 .CartButton {
-  background: #E55A54;
-  border-radius: 2px;
-  color: #fff;
+  background: transparent;
+  color: #E55A54;
 }
 
 .CartButton:hover, .CartButton:active, .CartButton:focus {
-  color: rgba(255, 255, 255, .56);
+  color: #E55A54;
+  outline: 0;
 }
 
 .CartButton::before {
@@ -100,24 +109,47 @@
   margin-right: 0.5em;
 }
 
+.CartButton--loading::before {
+  content: '\231b'; /* glyphicon-hourglass */
+}
+
 .CartButton--loading::after {
   content: 'Loading';
 }
 
 .CartButton--remove::before {
-  content: '\2212'; /* glyphicon-minus */
+  content: '\e013'; /* glyphicon-ok */
+  -webkit-animation: zoom-in .6s forwards cubic-bezier(0.290, 1.635, 0.190, 0.880);
 }
 
 .CartButton--remove::after {
-  content: 'Remove from cart';
+  content: 'Added to cart';
 }
 
 .CartButton--add::before {
-  content: "\2b"; /* glyphicon-plus */
+  content: '\e116'; /* glyphicon-cart */
+  -webkit-animation: spin-in .4s forwards cubic-bezier(0, 0.5, 0.5, 1);
 }
 
 .CartButton--add::after {
   content: 'Add to cart';
+}
+
+.CartButton--iconOnly {
+  background: transparent;
+  color: #E55A54;
+  border: 0;
+
+  /* Make iconOnly buttons align verically with others */
+  padding-left: 0;
+  padding-right: 0;
+
+  transition: transform .3s ease-out;
+  will-change: transform;
+}
+
+.CartButton--iconOnly:hover {
+  transform: scale(1.25);
 }
 
 .CartButton--iconOnly::before {
@@ -126,4 +158,72 @@
 
 .CartButton--iconOnly::after {
   display: none;
+}
+
+.Page {
+  /* Padding-top = SiteHeader height + grid gutter */
+  /* Padding left/right = gutter size */
+  padding: 72px 16px 16px;
+}
+
+.Grid {
+  /* Set gutter = 16px */
+  margin: 0 -8px;
+}
+
+ul.Grid {
+  /* Fix Grid applying to <ul> */
+  list-style: none;
+  padding-left: 0;
+}
+
+.Grid-cell {
+  /* Set gutter = 16px */
+  padding: 0 8px 16px;
+}
+
+.ProductPage-cell {
+  position: relative; /*  For caption */
+}
+
+.ProductPage-image {
+  width: 100%;
+}
+
+.ProductPage-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 48px; /* Grid list header: http://goo.gl/ZHrhbK */
+  padding: 0 16px;
+
+  display: flex;
+  align-items: center;
+  background: rgba(0,0,0,.56);
+}
+
+.ProductPage-caption > a {
+  margin-right: auto; /* push cartButton all the way to the right */
+  color: rgba(255,255,255,.87);
+}
+
+.ProductPage-caption > .CartButton {
+  color: rgba(255,255,255,.87);
+}
+
+@-webkit-keyframes zoom-in {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}
+
+@-webkit-keyframes spin-in {
+  from {
+    opacity: 0;
+    transform: rotate(-720deg);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0deg);
+  }
 }

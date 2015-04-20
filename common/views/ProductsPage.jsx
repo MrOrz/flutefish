@@ -45,17 +45,24 @@ module.exports = React.createClass({
 
     var productElems = this.state.products.map(function(product, idx) {
       return (
-        <li key={product.id}>
-          <Link to="product" params={{id: product.id}}>{product.name}</Link>
-          <CartButton productId={product.id} />
+        <li className="Grid-cell col-xs-12 col-md-3">
+          <figure className="ProductPage-cell" key={product.id}>
+            <Link to="product" params={{id: product.id}}>
+              <img className="ProductPage-image" src={product.thumbnail}
+                   alt={product.name} />
+            </Link>
+            <figcaption className="ProductPage-caption">
+              <Link to="product" params={{id: product.id}}>{product.name}</Link>
+              <CartButton className="CartButton--iconOnly btn-lg" productId={product.id} />
+            </figcaption>
+          </figure>
         </li>
       );
     });
 
     return (
-      <div>
-        <h2>Products</h2>
-        <ul>
+      <div className="Page ProductPage container">
+        <ul className="Grid row">
           {productElems}
         </ul>
       </div>
