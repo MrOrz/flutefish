@@ -14,10 +14,6 @@ React.render((
   <App gofluxContext={context} />
 ), document.getElementById('react-root'));
 
-// Fetch cart, which requires cookie.
-//
-context.getActions('cartActions').all();
-
 // Bind back-button / forward button listener
 //
 window.addEventListener('popstate', function(evt) {

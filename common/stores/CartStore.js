@@ -47,11 +47,13 @@ module.exports = function(context) {
     },
 
     dehydrate: function() {
-      return cartProductIds;
+      // Do nothing, since cart cannot be populated without cookie
+      // on server-side.
     },
 
     rehydrate: function(state) {
-      cartProductIds = state;
+      // Do nothing, since cart cannot be populated without cookie
+      // on server-side.
     }
   });
 };

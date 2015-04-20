@@ -1,6 +1,7 @@
 var React = require('react'),
-    constants = require('../config/constants'),
     mixins = require('goflux').mixins,
+    constants = require('../config/constants'),
+    resolver = require('../utils/resolver'),
 
     CartButton = require('./CartButton.jsx');
 
@@ -20,6 +21,12 @@ module.exports = React.createClass({
       cart: cartStore.all(),
       isCartLoading: cartStore.isLoading()
     };
+  },
+
+  componentWillMount: function() {
+    if (constants.IS_BROWSER) {
+      resolver.addPromise(this.gofluxActions('cartActions').all());
+    }
   },
 
   componentDidMount: function() {
