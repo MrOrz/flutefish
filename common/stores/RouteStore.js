@@ -19,7 +19,7 @@ module.exports = function(context) {
       return currentRoute;
     },
 
-    getMeta: function(){
+    getMeta: function() {
       return meta;
     },
 

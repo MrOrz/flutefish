@@ -1,3 +1,8 @@
+// Singleton resolver that collects all data-fetching promises in React
+// components in their `componentWillMount` callback.
+//
+// An idea from [iam4x/isomorphic-flux-boilerplate](http://goo.gl/OeSgP5).
+//
 var constants = require('../config/constants'),
     promises = [];
 
