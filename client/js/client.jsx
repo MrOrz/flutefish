@@ -3,6 +3,9 @@
 require('expose?jQuery!expose?$!jquery'); // expose "jQuery" and "$" to window
 require('bootstrap');
 
+// Trigger CSS processing
+require('../css/client.css');
+
 var React = require('react'),
     App = require('../../common/views/App.jsx'),
     gofluxApp = require('../../common/gofluxApp'),

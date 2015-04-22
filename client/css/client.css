@@ -83,12 +83,12 @@
   border-right-bottom-radius: 2px;
   background: #fff;
   box-shadow: none;
-  -webkit-box-shadow: none;
+  box-shadow: none;
   padding: 16px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   color: rgba(0,0,0,.87);
 
-  -webkit-animation: fade-in .2s;
+  animation: fade-in .2s;
 }
 
 @media screen and (min-width: 767px) {
@@ -162,7 +162,7 @@
 
 .CartButton.is-added::before {
   content: '\e013'; /* glyphicon-ok */
-  -webkit-animation: zoom-in .6s forwards cubic-bezier(0.290, 1.635, 0.190, 0.880);
+  animation: zoom-in .6s forwards cubic-bezier(0.290, 1.635, 0.190, 0.880);
 }
 
 .CartButton.is-added::after {
@@ -171,7 +171,7 @@
 
 .CartButton.is-notAdded::before {
   content: '\e116'; /* glyphicon-cart */
-  -webkit-animation: spin-in .4s forwards cubic-bezier(0, 0.5, 0.5, 1);
+  animation: spin-in .4s forwards cubic-bezier(0, 0.5, 0.5, 1);
 }
 
 .CartButton.is-notAdded::after {
@@ -189,6 +189,11 @@
 
   transition: transform .3s ease-out;
   will-change: transform;
+}
+
+.CartButton--iconOnly:hover, .CartButton--iconOnly:active,
+.CartButton--iconOnly:focus {
+  background: transparent;
 }
 
 .CartButton--iconOnly:hover {
@@ -299,17 +304,17 @@ ul.Grid {
   }
 }
 
-@-webkit-keyframes fade-in {
+@keyframes fade-in {
   from { opacity: 0; }
   to { opacity: 1; }
 }
 
-@-webkit-keyframes zoom-in {
+@keyframes zoom-in {
   from { transform: scale(0); }
   to { transform: scale(1); }
 }
 
-@-webkit-keyframes spin-in {
+@keyframes spin-in {
   from {
     opacity: 0;
     transform: rotate(-720deg);
