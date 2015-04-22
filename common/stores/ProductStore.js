@@ -12,7 +12,7 @@ module.exports = function(context) {
       //
       allProductIds = [],
 
-      // If any data is populated in store.
+      // If allProductIds is populated in store.
       // React components can check this before it make requests to API.
       //
       hasInitialized = false;
@@ -30,8 +30,6 @@ module.exports = function(context) {
       } else {
         products[product.id] = product;
       }
-
-      hasInitialized = true;
     },
 
     _setProducts: function(newProducts) {
@@ -51,6 +49,7 @@ module.exports = function(context) {
         this._setProducts(newProducts)
         // Update allProductIds.
         allProductIds = newProducts.map(function(product) {return product.id});
+        hasInitialized = true;
 
         this.emit(constants.CHANGE);
       }
