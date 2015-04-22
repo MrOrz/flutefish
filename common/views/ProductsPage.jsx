@@ -45,8 +45,8 @@ module.exports = React.createClass({
 
     var productElems = this.state.products.map(function(product, idx) {
       return (
-        <li className="Grid-cell col-xs-12 col-md-3">
-          <figure className="ProductsPage-cell" key={product.id}>
+        <li className="Grid-cell col-xs-12 col-md-3" key={product.id}>
+          <figure className="ProductsPage-cell">
             <Link to="product" params={{id: product.id}}>
               <img className="ProductsPage-image" src={product.thumbnail}
                    alt={product.name} />
