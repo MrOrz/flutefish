@@ -48,13 +48,26 @@ module.exports = React.createClass({
   },
 
   render: function() {
-    var product = this.state.product || {};
+    var product = this.state.product || {},
+        image;
 
-    return (
-      <div className="ProductPage">
+    if(product.image){
+      image = (
         <div className="ProductPage-image"
              style={{backgroundImage: 'url('+product.image+')'}}>
         </div>
+      );
+    }else{
+      image = (
+        <div className="ProductPage-image">
+          <span className="glyphicon glyphicon-hourglass"></span>
+        </div>
+      )
+    }
+
+    return (
+      <div className="ProductPage">
+        {image}
         <div className="ProductPage-text">
           <h2>{product.name}</h2>
           <p>TWD {product.price}</p>

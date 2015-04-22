@@ -274,6 +274,13 @@ ul.Grid {
 .ProductPage-image {
   background-size: cover;
   background-position: center center;
+
+  /* For loading content */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 84px;
+  color: #E55A54;
 }
 
 .ProductPage-text {
