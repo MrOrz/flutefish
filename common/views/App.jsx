@@ -2,7 +2,8 @@ var React = require('react'),
     constants = require('../config/constants'),
     mixins = require('goflux').mixins,
 
-    SiteHeader = require('./SiteHeader.jsx'),
+    CartDropdown = require('./CartDropdown.jsx'),
+    Link = require('./Link.jsx'),
 
     ProductsPage = require('./ProductsPage.jsx'),
     ProductPage = require('./ProductPage.jsx');
@@ -29,7 +30,8 @@ module.exports = React.createClass({
     case 'product':
       return {
         component: ProductPage,
-        props: {productId: route.params.id}
+        props: {productId: route.params.id},
+        isHeaderTransparent: true
       };
     }
   },
@@ -41,9 +43,21 @@ module.exports = React.createClass({
   },
 
   render: function() {
+    var headerClassName = 'SiteHeader';
+    if(this.state.page.isHeaderTransparent){
+      headerClassName += ' is-transparent';
+    }
+
     return (
       <div>
-        <SiteHeader />
+        <header className={headerClassName}>
+          <div className="container SiteHeader-container">
+            <Link to="products" className="SiteHeader-logo">
+              <h1>Flutefish</h1>
+            </Link>
+            <CartDropdown />
+          </div>
+        </header>
 
         <this.state.page.component {...this.state.page.props} />
       </div>
