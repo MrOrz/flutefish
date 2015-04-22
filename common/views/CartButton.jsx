@@ -23,10 +23,12 @@ module.exports = React.createClass({
   },
 
   _addToCart: function() {
+    this.setState({isLoading: true});
     this.gofluxActions('cartActions').add(this.props.productId);
   },
 
   _removeFromCart: function() {
+    this.setState({isLoading: true});
     this.gofluxActions('cartActions').remove(this.props.productId);
   },
 
