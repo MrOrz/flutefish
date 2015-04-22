@@ -31,7 +31,7 @@ module.exports = React.createClass({
   componentWillMount: function() {
     var product = this.gofluxStore('ProductStore').get(this.props.productId);
 
-    if (product && product.price) {
+    if (product && product.image) {
       // Store populated with required data, just set title
       this.gofluxActions('routeActions').setMeta({
         title: product.name,
