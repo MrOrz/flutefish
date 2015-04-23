@@ -1,6 +1,5 @@
 var React = require('react'),
     constants = require('../config/constants'),
-    resolver = require('../utils/resolver'),
 
     CartStore = require('../stores/CartStore'),
     cartActions = require('../actions/cartActions'),
@@ -26,7 +25,7 @@ module.exports = React.createClass({
 
   componentWillMount: function() {
     if (!CartStore.hasInitialized()) {
-      resolver.addPromise(cartActions.all());
+      cartActions.all();
     }
   },
 

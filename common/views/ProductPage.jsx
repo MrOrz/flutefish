@@ -1,6 +1,5 @@
 var React = require('react'),
     constants = require('../config/constants'),
-    resolver = require('../utils/resolver'),
 
     ProductStore = require('../stores/ProductStore'),
     productActions = require('../actions/productActions'),
@@ -40,9 +39,7 @@ module.exports = React.createClass({
     if (!(product && product.image)) {
       // store not populated yet, start loading
 
-      dataPromise = resolver.addPromise(
-        productActions.get(this.props.productId)
-      );
+      dataPromise = productActions.get(this.props.productId);
     }
 
     dataPromise.then(function() {

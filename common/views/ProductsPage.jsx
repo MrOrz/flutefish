@@ -1,6 +1,5 @@
 var React = require('react'),
     constants = require('../config/constants'),
-    resolver = require('../utils/resolver'),
 
     ProductStore = require('../stores/ProductStore'),
     productActions = require('../actions/productActions'),
@@ -33,9 +32,7 @@ module.exports = React.createClass({
   componentWillMount: function() {
     var dataPromise = Promise.resolve();
     if (!ProductStore.hasInitialized()) {
-      dataPromise = resolver.addPromise(
-        productActions.all()
-      );
+      dataPromise = productActions.all();
     }
     dataPromise.then(function() {
       routeActions.setMeta({

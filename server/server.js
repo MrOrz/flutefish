@@ -15,7 +15,6 @@ var express = require('express'),
     routeActions = require('../common/actions/routeActions'),
 
     constants = require('../common/config/constants'),
-    resolver = require('../common/utils/resolver'),
     fetch = require('../common/utils/fetch');
 
 // Catch all unhandled promise rejections and print error.
@@ -78,34 +77,9 @@ app.get('*', function(req, res) {
   // 1st render, triggers all componentWillMount.
   app = React.createElement(App);
 
-  console.log('[server] 1st render');
-
-  // clear promise --> render --> get a promise that resolves after all promises
-  //
-  // 3 synchronous method calls in a row to prevent intervention from other
-  // requests.
-  //
-  resolver.clearPromises();
   fetch.setCookie(cookieStr);
-  React.renderToString(app);
-  resolver.resolveAll().then(function() {
-    // All promises added to resolver has been resolved.
-    // Therefore all stores should be populated.
-    //
-
-    console.log('[server] 2nd render');
-    var html = React.renderToString(app); // Also collects promises, but ignored
-
-    res.render('index', {
-      meta: RouteStore.getMeta(),
-      html: html
-    });
-  }).catch(function(reason) {
-    if (reason === 'Not found') {
-      res.sendStatus(404);
-    } else {
-      throw reason;
-    }
+  res.render('index', {
+    html: React.renderToString(app)
   });
 
 });
