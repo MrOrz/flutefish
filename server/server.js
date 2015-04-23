@@ -67,21 +67,7 @@ app.use('/api', require('./routes/api.js'));
 // Catch-all route
 //
 app.get('*', function(req, res) {
-  var cookieStr = res.get('set-cookie'), // Fetch the newly-set cookie
-      app;
-
-  // First, populate route store
-  //
-  routeActions.goTo(req.path);
-
-  // 1st render, triggers all componentWillMount.
-  app = React.createElement(App);
-
-  fetch.setCookie(cookieStr);
-  res.render('index', {
-    html: React.renderToString(app)
-  });
-
+  res.render('index');
 });
 
 var server = app.listen(constants.PORT, function() {

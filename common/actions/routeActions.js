@@ -13,7 +13,7 @@ module.exports = {
       return Promise.reject('Not found');
     }
 
-    if (constants.IS_BROWSER && !poppedState) {
+    if (!poppedState) {
       // Change URL if the user is not hitting the back / forward button
       //
       window.history.pushState({
@@ -30,13 +30,11 @@ module.exports = {
     //
     dispatcher.dispatch({actionType: 'ROUTE_CHANGE', data: route});
 
-    if (constants.IS_BROWSER) {
-      // Restore old scrolling position, or to the top
-      //
-      window.scrollTo(
-        0, (poppedState && poppedState.scrollPositionBeforePush) || 0
-      );
-    }
+    // Restore old scrolling position, or to the top
+    //
+    window.scrollTo(
+      0, (poppedState && poppedState.scrollPositionBeforePush) || 0
+    );
   },
 
   setMeta: function(obj) {
