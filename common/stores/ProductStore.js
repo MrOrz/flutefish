@@ -76,12 +76,12 @@ module.exports = function(context) {
     },
 
     dehydrate: function() {
-      return [products, allProductIds];
+      return [products, allProductIds, hasInitialized];
     },
     rehydrate: function(state) {
       products = state[0];
       allProductIds = state[1];
-      hasInitialized = true;
+      hasInitialized = state[2];
     }
   });
 };

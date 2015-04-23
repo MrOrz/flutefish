@@ -47,12 +47,12 @@ module.exports = function(context) {
     },
 
     dehydrate: function() {
-      return cartProductIds;
+      return [cartProductIds, hasInitialized];
     },
 
     rehydrate: function(state) {
-      cartProductIds = state;
-      hasInitialized = true;
+      cartProductIds = state[0];
+      hasInitialized = state[1];
     }
   });
 };
