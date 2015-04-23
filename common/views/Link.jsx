@@ -9,7 +9,6 @@ module.exports = React.createClass({
     params: React.PropTypes.object          // State parameter
   },
 
-
   getInitialState: function() {
     return {
       href: router.makePath(this.props.to, this.props.params)

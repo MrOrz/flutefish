@@ -18,7 +18,6 @@ var dispatcher = require('../dispatcher'),
     //
     hasInitialized = false;
 
-
 module.exports = ProductStore = createEmitter({
   _setSingleProduct: function(product) {
     // Given a productInstance {id: productId, props...},
@@ -78,8 +77,8 @@ module.exports = ProductStore = createEmitter({
   }
 });
 
-ProductStore.dispatchToken = dispatcher.register(function(payload){
-  switch(payload.actionType){
+ProductStore.dispatchToken = dispatcher.register(function(payload) {
+  switch (payload.actionType){
 
   case 'SET_PRODUCTS':
     ProductStore._onSetProducts(payload.data);

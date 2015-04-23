@@ -33,9 +33,9 @@ module.exports = React.createClass({
   componentWillMount: function() {
     var dataPromise = Promise.resolve();
     // if (!ProductStore.hasInitialized()) {
-      dataPromise = resolver.addPromise(
-        productActions.all()
-      );
+    dataPromise = resolver.addPromise(
+      productActions.all()
+    );
     // }
     dataPromise.then(function() {
       routeActions.setMeta({

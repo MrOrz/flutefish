@@ -38,11 +38,11 @@ module.exports = React.createClass({
         dataPromise = Promise.resolve();
 
     // if (!(product && product.image)) {
-      // store not populated yet, start loading
+    // store not populated yet, start loading
 
-      dataPromise = resolver.addPromise(
-        productActions.get(this.props.productId)
-      );
+    dataPromise = resolver.addPromise(
+      productActions.get(this.props.productId)
+    );
     // }
 
     dataPromise.then(function() {

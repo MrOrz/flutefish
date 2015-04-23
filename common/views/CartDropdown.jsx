@@ -26,7 +26,7 @@ module.exports = React.createClass({
 
   componentWillMount: function() {
     // if (!CartStore.hasInitialized()) {
-      resolver.addPromise(cartActions.all());
+    resolver.addPromise(cartActions.all());
     // }
   },
 
@@ -40,7 +40,6 @@ module.exports = React.createClass({
   componentWillUnmount: function() {
     CartStore.removeListener(constants.CHANGE, this._onCartChange);
   },
-
 
   render: function() {
 
