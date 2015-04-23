@@ -232,6 +232,8 @@ ul.Grid {
 
 .ProductsPage-cell {
   position: relative; /*  For caption */
+  background: hsl(2, 10, 90);
+  border-radius: 2px;
 }
 
 .ProductsPage-image {
@@ -277,8 +279,10 @@ ul.Grid {
 }
 
 .ProductPage-image {
-  background-size: cover;
+  background-color: hsl(2, 0, 51);
+  background-size: contain;
   background-position: center center;
+  background-repeat: no-repeat;
 
   /* For loading content */
   display: flex;

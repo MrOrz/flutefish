@@ -6,29 +6,39 @@ var assert = require('assert'),
     products = [
       {
         id: 'mola', name: 'Mola', price: 890,
-        thumbnail: 'http://placehold.it/320x320',
-        image: 'http://placehold.it/600x600'
+        thumbnail: '/images/mola-bags.png',
+        image: '/images/mola-bag.png'
+      },
+      {
+        id: 'mola-light', name: 'Mola Light', price: 890,
+        thumbnail: '/images/mola-ip1s.png',
+        image: '/images/mola-ip1.png'
+      },
+      {
+        id: 'mola-deep', name: 'Mola Deep', price: 890,
+        thumbnail: '/images/mola-ip2s.png',
+        image: '/images/mola-ip2.png'
       },
       {
         id: 'mola-mola', name: 'Mola Mola', price: 799,
-        thumbnail: 'http://placehold.it/320x320',
-        image: 'http://placehold.it/600x600'
+        thumbnail: '/images/mola-ip3s.png',
+        image: '/images/mola-ip3.png'
       },
       {
-        id: 'flutefish', name: 'Flutefish', price: 690,
-        thumbnail: 'http://placehold.it/320x320',
-        image: 'http://placehold.it/600x600'
+        id: 'mola-oao', name: 'Mola OAO', price: 799,
+        thumbnail: '/images/mola-ip4s.png',
+        image: '/images/mola-ip4.png'
       },
       {
-        id: 'flute', name: 'Flute ∞', price: 1099,
-        thumbnail: 'http://placehold.it/320x320',
-        image: 'http://placehold.it/600x600'
+        id: 'flutefish', name: 'Flutefish', price: 1099,
+        thumbnail: '/images/flute-bag2s.png',
+        image: '/images/flute-bag2.png'
       },
       {
-        id: 'flute2', name: 'Flute ∞^2', price: 1099,
-        thumbnail: 'http://placehold.it/320x320',
-        image: 'http://placehold.it/600x600'
-      },
+        id: 'flute', name: 'Flute ∞', price: 1199,
+        thumbnail: '/images/flute-bag1s.png',
+        image: '/images/flute-bag1.png'
+      }
     ];
 
 /**
