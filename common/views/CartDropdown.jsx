@@ -25,9 +25,9 @@ module.exports = React.createClass({
   },
 
   componentWillMount: function() {
-    // if (!CartStore.hasInitialized()) {
-    resolver.addPromise(cartActions.all());
-    // }
+    if (!CartStore.hasInitialized()) {
+      resolver.addPromise(cartActions.all());
+    }
   },
 
   componentDidMount: function() {

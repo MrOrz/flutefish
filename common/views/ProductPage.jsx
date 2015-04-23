@@ -37,13 +37,13 @@ module.exports = React.createClass({
     var product = ProductStore.get(this.props.productId),
         dataPromise = Promise.resolve();
 
-    // if (!(product && product.image)) {
-    // store not populated yet, start loading
+    if (!(product && product.image)) {
+      // store not populated yet, start loading
 
-    dataPromise = resolver.addPromise(
-      productActions.get(this.props.productId)
-    );
-    // }
+      dataPromise = resolver.addPromise(
+        productActions.get(this.props.productId)
+      );
+    }
 
     dataPromise.then(function() {
       // Re-fetch from store
