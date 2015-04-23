@@ -44,15 +44,6 @@ module.exports = function(context) {
 
     hasInitialized: function() {
       return hasInitialized;
-    },
-
-    dehydrate: function() {
-      return [cartProductIds, hasInitialized];
-    },
-
-    rehydrate: function(state) {
-      cartProductIds = state[0];
-      hasInitialized = state[1];
     }
   });
 };

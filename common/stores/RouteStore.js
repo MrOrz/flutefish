@@ -33,16 +33,6 @@ module.exports = function(context) {
 
     getMeta: function() {
       return meta;
-    },
-
-    dehydrate: function() {
-      return [currentRoute, meta];
-    },
-
-    rehydrate: function(state) {
-      currentRoute = state[0];
-      meta = state[1];
     }
-
   });
 };

@@ -93,12 +93,11 @@ app.get('*', function(req, res) {
     //
 
     console.log('[server] 2nd render');
-    var dehydratedStr = JSON.stringify(context.dehydrate()),
-        html = React.renderToString(app); // Also collects promises, but ignored
+    var html = React.renderToString(app); // Also collects promises, but ignored
 
     res.render('index', {
       meta: context.getStore('RouteStore').getMeta(),
-      html: html, dehydratedStr: dehydratedStr
+      html: html
     });
   }).catch(function(reason) {
     if (reason === 'Not found') {

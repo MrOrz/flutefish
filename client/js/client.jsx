@@ -12,7 +12,7 @@ var React = require('react'),
     context = gofluxApp.createContext(),
     constants = require('../../common/config/constants');
 
-context.rehydrate(window.__dehydrated);
+context.getActions('routeActions').goTo(window.location.pathname);
 
 React.render((
   <App gofluxContext={context} />

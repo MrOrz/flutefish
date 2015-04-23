@@ -73,15 +73,6 @@ module.exports = function(context) {
 
     hasInitialized: function() {
       return hasInitialized;
-    },
-
-    dehydrate: function() {
-      return [products, allProductIds, hasInitialized];
-    },
-    rehydrate: function(state) {
-      products = state[0];
-      allProductIds = state[1];
-      hasInitialized = state[2];
     }
   });
 };
