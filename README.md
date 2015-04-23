@@ -1,18 +1,21 @@
 # flutefish
-Example isomorphic app with product listing, individual product page and fav items. Uses Goflux + Yahoo Routr.
+
+Example isomorphic app with product listing, individual product page and fav items. Uses [Goflux](https://github.com/tomchentw/goflux/) + [Yahoo Routr](https://github.com/yahoo/routr).
+
+Running example: http://flutefish.herokuapp.com/
 
 ## Solution Stack
 
 * Frontend
   - React.js
-  - Goflux
-  - Yahoo Routr
-  - webpack
+  - [Goflux](https://github.com/tomchentw/goflux/)
+  - [Yahoo Routr](https://github.com/yahoo/routr)
+  - [webpack](http://webpack.github.io/docs/)
 
 * Backend
   - Express.js
   - React.js server side rendering
-  - Goflux
+  - [Goflux](https://github.com/tomchentw/goflux/)
 
 ## Starting Points
 
