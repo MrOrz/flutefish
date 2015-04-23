@@ -8,12 +8,17 @@ var React = require('react'),
     CartButton = require('./CartButton.jsx');
 
 module.exports = React.createClass({
-  mixins: [
-    mixins.GofluxMixin(React),
-    mixins.StoreWatchMixin([
-      'ProductStore'
-    ], constants.CHANGE, '_onStoreChange')
-  ],
+  mixins: [mixins.GofluxMixin(React)],
+
+  componentDidMount: function() {
+    this.gofluxStore('ProductStore')
+        .addListener(constants.CHANGE, this._onStoreChange);
+  },
+
+  componentWillUnmount: function() {
+    this.gofluxStore('ProductStore')
+        .removeListener(constants.CHANGE, this._onStoreChange);
+  },
 
   _onStoreChange: function() {
     this.setState(this.getInitialState());

@@ -6,10 +6,7 @@ var React = require('react'),
     Link = require('./Link.jsx');
 
 module.exports = React.createClass({
-  mixins: [
-    mixins.GofluxMixin(React),
-    mixins.StoreWatchMixin(['CartStore'], constants.CHANGE, '_onCartChange')
-  ],
+  mixins: [mixins.GofluxMixin(React)],
 
   _onCartChange: function() {
     this.setState(this.getInitialState());
@@ -34,9 +31,16 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function() {
+    this.gofluxStore('CartStore').addListener(constants.CHANGE, this._onCartChange);
+
     // Initialize dropdown
     $(React.findDOMNode(this.refs.Toggle)).dropdown();
   },
+
+  componentWillUnmount: function() {
+    this.gofluxStore('CartStore').removeListener(constants.CHANGE, this._onCartChange);
+  },
+
 
   render: function() {
 

@@ -9,12 +9,17 @@ var React = require('react'),
     ProductPage = require('./ProductPage.jsx');
 
 module.exports = React.createClass({
-  mixins: [
-    mixins.GofluxMixin(React),
-    mixins.StoreWatchMixin([
-      'RouteStore'
-    ], constants.CHANGE, '_onStoreChange')
-  ],
+  mixins: [mixins.GofluxMixin(React)],
+
+  componentDidMount: function() {
+    this.gofluxStore('RouteStore')
+        .addListener(constants.CHANGE, this._onStoreChange);
+  },
+
+  componentWillUnmount: function() {
+    this.gofluxStore('RouteStore')
+        .removeListener(constants.CHANGE, this._onStoreChange);
+  },
 
   _onStoreChange: function() {
     this.setState(this.getInitialState());

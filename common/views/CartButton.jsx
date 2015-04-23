@@ -3,13 +3,20 @@ var React = require('react'),
     mixins = require('goflux').mixins;
 
 module.exports = React.createClass({
-  mixins: [
-    mixins.GofluxMixin(React),
-    mixins.StoreWatchMixin(['CartStore'], constants.CHANGE, '_onCartChange')
-  ],
+  mixins: [mixins.GofluxMixin(React)],
 
   propTypes: {
     productId: React.PropTypes.string.isRequired
+  },
+
+  componentDidMount: function() {
+    this.gofluxStore('CartStore')
+        .addListener(constants.CHANGE, this._onCartChange);
+  },
+
+  componentWillUnmount: function() {
+    this.gofluxStore('CartStore')
+        .removeListener(constants.CHANGE, this._onCartChange);
   },
 
   _onCartChange: function() {
