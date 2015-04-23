@@ -44,7 +44,7 @@ module.exports = React.createClass({
 
   render: function() {
     var headerClassName = 'SiteHeader';
-    if(this.state.page.isHeaderTransparent){
+    if (this.state.page.isHeaderTransparent) {
       headerClassName += ' is-transparent';
     }
 

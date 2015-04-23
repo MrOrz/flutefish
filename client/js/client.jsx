@@ -29,7 +29,7 @@ window.addEventListener('popstate', function(evt) {
 
 // Set document title when meta data changes
 //
-context.getStore('RouteStore').addListener(constants.CHANGE, function(){
+context.getStore('RouteStore').addListener(constants.CHANGE, function() {
   var meta = context.getStore('RouteStore').getMeta();
   document.title = meta.suffixedTitle;
 });

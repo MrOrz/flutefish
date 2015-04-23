@@ -52,7 +52,8 @@ module.exports = React.createClass({
             </Link>
             <figcaption className="ProductsPage-caption">
               <Link to="product" params={{id: product.id}}>{product.name}</Link>
-              <CartButton className="CartButton--iconOnly btn-lg" productId={product.id} />
+              <CartButton className="CartButton--iconOnly btn-lg"
+                          productId={product.id} />
             </figcaption>
           </figure>
         </li>
