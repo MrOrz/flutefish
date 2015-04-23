@@ -9,7 +9,8 @@ require('../css/client.css');
 var React = require('react'),
     App = require('../../common/views/App.jsx'),
     gofluxApp = require('../../common/gofluxApp'),
-    context = gofluxApp.createContext();
+    context = gofluxApp.createContext(),
+    constants = require('../../common/config/constants');
 
 context.rehydrate(window.__dehydrated);
 
@@ -24,4 +25,11 @@ window.addEventListener('popstate', function(evt) {
     window.location.pathname,
     evt.state
   );
+});
+
+// Set document title when meta data changes
+//
+context.getStore('RouteStore').addListener(constants.CHANGE, function(){
+  var meta = context.getStore('RouteStore').getMeta();
+  document.title = meta.suffixedTitle;
 });

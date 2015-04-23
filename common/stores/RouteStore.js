@@ -7,7 +7,7 @@ module.exports = function(context) {
   //
   var currentRoute,
 
-      // Metadata for current webpage, like pageTitle, ogImage, etc.
+      // Metadata for current webpage, like title, ogImage, etc.
       //
       meta = {};
 
@@ -19,6 +19,11 @@ module.exports = function(context) {
 
     _onSetMeta: function(newMeta) {
       meta = newMeta;
+
+      meta.suffixedTitle = meta.title ?
+                            meta.title + ' :: Flutefish' :
+                            'Flutefish';
+
       this.emit(constants.CHANGE);
     },
 

@@ -29,35 +29,40 @@ module.exports = React.createClass({
   },
 
   componentWillMount: function() {
-    var product = this.gofluxStore('ProductStore').get(this.props.productId);
+    var product = this.gofluxStore('ProductStore').get(this.props.productId),
+        dataPromise = Promise.resolve();
 
-    if (product && product.image) {
-      // Store populated with required data, just set title
+    if (!(product && product.image)) {
+      // store not populated yet, start loading
+
+      dataPromise = resolver.addPromise(
+        this.gofluxActions('productActions').get(this.props.productId)
+      );
+    }
+
+    dataPromise.then(function() {
+      // Re-fetch from store
+      var product = this.gofluxStore('ProductStore').get(this.props.productId);
+
       this.gofluxActions('routeActions').setMeta({
         title: product.name,
         ogImage: product.image
       });
+    }.bind(this));
 
-    } else {
-      // store not populated yet, start loading
-
-      resolver.addPromise(
-        this.gofluxActions('productActions').get(this.props.productId)
-      );
-    }
   },
 
   render: function() {
     var product = this.state.product || {},
         image;
 
-    if(product.image){
+    if (product.image) {
       image = (
         <div className="ProductPage-image"
-             style={{backgroundImage: 'url('+product.image+')'}}>
+             style={{backgroundImage: 'url(' + product.image + ')'}}>
         </div>
       );
-    }else{
+    }else {
       image = (
         <div className="ProductPage-image">
           <span className="glyphicon glyphicon-hourglass"></span>

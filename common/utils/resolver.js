@@ -8,8 +8,12 @@ var constants = require('../config/constants'),
 
 exports.addPromise = function(promise) {
   if (!constants.IS_BROWSER) {
+    // Only accumulate promises during server-side rendering
+    //
     promises.push(promise);
   }
+
+  return promise;
 };
 
 exports.clearPromises = function() {

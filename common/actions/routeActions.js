@@ -40,17 +40,7 @@ module.exports = function(context) {
     },
 
     setMeta: function(obj) {
-      obj.pageTitle = obj.title ? obj.title + ' :: Flutefish' : 'Flutefish';
-
-      if (constants.IS_BROWSER) {
-        // Do DOM manipulation here.
-        //
-        document.title = obj.pageTitle;
-      } else {
-        // For server, set meta into stores.
-        //
-        context.dispatch('SET_META', obj);
-      }
+      context.dispatch('SET_META', obj);
     }
   };
 

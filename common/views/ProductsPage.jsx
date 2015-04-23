@@ -27,18 +27,17 @@ module.exports = React.createClass({
   },
 
   componentWillMount: function() {
-    if (this.gofluxStore('ProductStore').hasInitialized()) {
-
+    var dataPromise = Promise.resolve();
+    if (!this.gofluxStore('ProductStore').hasInitialized()) {
+      dataPromise = resolver.addPromise(
+        this.gofluxActions('productActions').all()
+      );
+    }
+    dataPromise.then(function() {
       this.gofluxActions('routeActions').setMeta({
         title: 'All products'
       });
-
-    } else {
-      resolver.addPromise(
-        this.gofluxActions('productActions').all()
-      );
-
-    }
+    }.bind(this));
   },
 
   render: function() {
