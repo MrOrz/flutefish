@@ -53,7 +53,8 @@ module.exports = React.createClass({
   },
 
   render: function() {
-    var product = this.state.product || {},
+    var product = this.state.product ||
+                  {id: this.props.productId}, // for <CartButton>
         image;
 
     if (product.image) {
@@ -62,7 +63,7 @@ module.exports = React.createClass({
              style={{backgroundImage: 'url(' + product.image + ')'}}>
         </div>
       );
-    }else {
+    } else {
       image = (
         <div className="ProductPage-image">
           <span className="glyphicon glyphicon-hourglass"></span>
