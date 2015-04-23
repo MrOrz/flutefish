@@ -21,15 +21,15 @@ module.exports = React.createClass({
   },
 
   getInitialState: function() {
-    var cartStore = this.gofluxStore('CartStore')
+    var cartStore = this.gofluxStore('CartStore');
     return {
       cart: cartStore.all(),
-      isCartLoading: cartStore.isLoading()
+      isCartLoading: !cartStore.hasInitialized()
     };
   },
 
   componentWillMount: function() {
-    if (constants.IS_BROWSER) {
+    if (!this.gofluxStore('CartStore').hasInitialized()) {
       resolver.addPromise(this.gofluxActions('cartActions').all());
     }
   },

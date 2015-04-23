@@ -8,14 +8,14 @@ module.exports = function(context) {
   //
   var cartProductIds = [],
 
-      // If we are currently fetching cart from server.
-      // Default to true so that it looks like its loading at first.
+      // If cartProductIds is populated in store.
+      // React components can check this before it before dispatching actions.
       //
-      isLoading = true;
+      hasInitialized = false;
 
   return createEmitter({
     _onCartLoading: function() {
-      isLoading = true;
+      hasInitialized = false;
       this.emit(constants.CHANGE);
     },
 
@@ -25,7 +25,7 @@ module.exports = function(context) {
       context.waitFor(['ProductStore']);
 
       cartProductIds = products.map(function(product) {return product.id;});
-      isLoading = false;
+      hasInitialized = true;
 
       this.emit(constants.CHANGE);
     },
@@ -42,18 +42,17 @@ module.exports = function(context) {
       return cartProductIds;
     },
 
-    isLoading: function() {
-      return isLoading;
+    hasInitialized: function() {
+      return hasInitialized;
     },
 
     dehydrate: function() {
-      // Do nothing, since cart cannot be populated without cookie
-      // on server-side.
+      return cartProductIds;
     },
 
     rehydrate: function(state) {
-      // Do nothing, since cart cannot be populated without cookie
-      // on server-side.
+      cartProductIds = state;
+      hasInitialized = true;
     }
   });
 };

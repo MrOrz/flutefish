@@ -35,7 +35,7 @@ module.exports = React.createClass({
   getInitialState: function() {
     var cartStore = this.gofluxStore('CartStore');
     return {
-      isLoading: cartStore.isLoading(),
+      isLoading: !cartStore.hasInitialized(),
       isInCart: cartStore.allIds().indexOf(this.props.productId) !== -1
     };
   },

@@ -13,7 +13,7 @@ module.exports = function(context) {
       allProductIds = [],
 
       // If allProductIds is populated in store.
-      // React components can check this before it make requests to API.
+      // React components can check this before dispatching actions.
       //
       hasInitialized = false;
 
@@ -81,6 +81,7 @@ module.exports = function(context) {
     rehydrate: function(state) {
       products = state[0];
       allProductIds = state[1];
+      hasInitialized = true;
     }
   });
 };

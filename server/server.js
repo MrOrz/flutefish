@@ -13,7 +13,8 @@ var express = require('express'),
 
     constants = require('../common/config/constants'),
     gofluxApp = require('../common/gofluxApp'),
-    resolver = require('../common/utils/resolver');
+    resolver = require('../common/utils/resolver'),
+    fetch = require('../common/utils/fetch');
 
 // Catch all unhandled promise rejections and print error.
 // Ref: https://iojs.org/api/process.html#process_event_unhandledrejection
@@ -46,10 +47,11 @@ app.use(require('body-parser').json()); // Post requests in application/json
 //
 app.use(function(req, res, next) {
   var userId = req.signedCookies.userId;
+  console.log('[Auth]', userId);
 
   req.user = (userId && User.find(userId)) || User.create();
   res.cookie('userId', req.user.id, {
-    httpOnly: true, signed: true, expires: new Date('2099/12/31')
+    httpOnly: true, signed: true, expires: new Date('2099/12/31'), path: '/'
   });
 
   next();
@@ -65,6 +67,7 @@ app.use('/api', require('./routes/api.js'));
 //
 app.get('*', function(req, res) {
   var context = gofluxApp.createContext(),
+      cookieStr = res.get('set-cookie'), // Fetch the newly-set cookie
       app;
 
   // First, populate route store
@@ -74,7 +77,7 @@ app.get('*', function(req, res) {
   // 1st render, triggers all componentWillMount.
   app = React.createElement(App, {gofluxContext: context});
 
-  console.log('1st render');
+  console.log('[server] 1st render');
 
   // clear promise --> render --> get a promise that resolves after all promises
   //
@@ -82,13 +85,14 @@ app.get('*', function(req, res) {
   // requests.
   //
   resolver.clearPromises();
+  fetch.setCookie(cookieStr);
   React.renderToString(app);
   resolver.resolveAll().then(function() {
     // All promises added to resolver has been resolved.
     // Therefore all stores should be populated.
     //
 
-    console.log('2nd render');
+    console.log('[server] 2nd render');
     var dehydratedStr = JSON.stringify(context.dehydrate()),
         html = React.renderToString(app); // Also collects promises, but ignored
 
