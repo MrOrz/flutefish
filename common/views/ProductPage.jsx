@@ -1,26 +1,26 @@
 var React = require('react'),
     constants = require('../config/constants'),
-    mixins = require('goflux').mixins,
     resolver = require('../utils/resolver'),
+
+    ProductStore = require('../stores/ProductStore'),
+    productActions = require('../actions/productActions'),
+    routeActions = require('../actions/routeActions'),
 
     Link = require('./Link.jsx'),
     CartButton = require('./CartButton.jsx');
 
 module.exports = React.createClass({
-  mixins: [mixins.GofluxMixin(React)],
 
   propTypes: {
     productId: React.PropTypes.string.isRequired
   },
 
   componentDidMount: function() {
-    this.gofluxStore('ProductStore')
-        .addListener(constants.CHANGE, this._onStoreChange);
+    ProductStore.addListener(constants.CHANGE, this._onStoreChange);
   },
 
   componentWillUnmount: function() {
-    this.gofluxStore('ProductStore')
-        .removeListener(constants.CHANGE, this._onStoreChange);
+    ProductStore.removeListener(constants.CHANGE, this._onStoreChange);
   },
 
   _onStoreChange: function() {
@@ -29,27 +29,27 @@ module.exports = React.createClass({
 
   getInitialState: function() {
     return {
-      product: this.gofluxStore('ProductStore').get(this.props.productId)
+      product: ProductStore.get(this.props.productId)
     }
   },
 
   componentWillMount: function() {
-    var product = this.gofluxStore('ProductStore').get(this.props.productId),
+    var product = ProductStore.get(this.props.productId),
         dataPromise = Promise.resolve();
 
-    if (!(product && product.image)) {
+    // if (!(product && product.image)) {
       // store not populated yet, start loading
 
       dataPromise = resolver.addPromise(
-        this.gofluxActions('productActions').get(this.props.productId)
+        productActions.get(this.props.productId)
       );
-    }
+    // }
 
     dataPromise.then(function() {
       // Re-fetch from store
-      var product = this.gofluxStore('ProductStore').get(this.props.productId);
+      var product = ProductStore.get(this.props.productId);
 
-      this.gofluxActions('routeActions').setMeta({
+      routeActions.setMeta({
         title: product.name,
         ogImage: product.image
       });

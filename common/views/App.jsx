@@ -1,24 +1,22 @@
 var React = require('react'),
     constants = require('../config/constants'),
-    mixins = require('goflux').mixins,
 
     CartDropdown = require('./CartDropdown.jsx'),
     Link = require('./Link.jsx'),
+
+    RouteStore = require('../stores/RouteStore'),
 
     ProductsPage = require('./ProductsPage.jsx'),
     ProductPage = require('./ProductPage.jsx');
 
 module.exports = React.createClass({
-  mixins: [mixins.GofluxMixin(React)],
 
   componentDidMount: function() {
-    this.gofluxStore('RouteStore')
-        .addListener(constants.CHANGE, this._onStoreChange);
+    RouteStore.addListener(constants.CHANGE, this._onStoreChange);
   },
 
   componentWillUnmount: function() {
-    this.gofluxStore('RouteStore')
-        .removeListener(constants.CHANGE, this._onStoreChange);
+    RouteStore.removeListener(constants.CHANGE, this._onStoreChange);
   },
 
   _onStoreChange: function() {
@@ -26,7 +24,7 @@ module.exports = React.createClass({
   },
 
   _getPage: function() {
-    var route = this.gofluxStore('RouteStore').getRoute();
+    var route = RouteStore.getRoute();
     switch (route.name){
     case 'products':
       return {

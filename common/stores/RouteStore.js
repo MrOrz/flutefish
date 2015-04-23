@@ -1,38 +1,51 @@
-var createEmitter = require('../utils/createEmitter'),
-    constants = require('../config/constants');
+var dispatcher = require('../dispatcher'),
+    createEmitter = require('../utils/createEmitter'),
+    constants = require('../config/constants'),
 
-module.exports = function(context) {
+    RouteStore,
 
-  // Routr route object
-  //
-  var currentRoute,
+    // Routr route object
+    //
+    currentRoute,
 
-      // Metadata for current webpage, like title, ogImage, etc.
-      //
-      meta = {};
+    // Metadata for current webpage, like title, ogImage, etc.
+    //
+    meta = {};
 
-  return createEmitter({
-    _onRouteChange: function(route) {
-      currentRoute = route;
-      this.emit(constants.CHANGE);
-    },
+module.exports = RouteStore = createEmitter({
+  _onRouteChange: function(route) {
+    currentRoute = route;
+    this.emit(constants.CHANGE);
+  },
 
-    _onSetMeta: function(newMeta) {
-      meta = newMeta;
+  _onSetMeta: function(newMeta) {
+    meta = newMeta;
 
-      meta.suffixedTitle = meta.title ?
-                            meta.title + ' :: Flutefish' :
-                            'Flutefish';
+    meta.suffixedTitle = meta.title ?
+                          meta.title + ' :: Flutefish' :
+                          'Flutefish';
 
-      this.emit(constants.CHANGE);
-    },
+    this.emit(constants.CHANGE);
+  },
 
-    getRoute: function() {
-      return currentRoute;
-    },
+  getRoute: function() {
+    return currentRoute;
+  },
 
-    getMeta: function() {
-      return meta;
-    }
-  });
-};
+  getMeta: function() {
+    return meta;
+  }
+});
+
+RouteStore.dispatchToken = dispatcher.register(function(payload) {
+  switch (payload.actionType) {
+
+  case 'ROUTE_CHANGE':
+    RouteStore._onRouteChange(payload.data);
+    break;
+
+  case 'SET_META':
+    RouteStore._onSetMeta(payload.data);
+    break;
+  }
+})

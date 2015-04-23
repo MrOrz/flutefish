@@ -1,6 +1,7 @@
 var React = require('react'),
-    GofluxMixin = require('goflux').mixins.GofluxMixin,
-    router = require('../config/router');
+    router = require('../config/router'),
+
+    routeActions = require('../actions/routeActions');
 
 module.exports = React.createClass({
   propTypes: {
@@ -8,7 +9,6 @@ module.exports = React.createClass({
     params: React.PropTypes.object          // State parameter
   },
 
-  mixins: [GofluxMixin(React)],
 
   getInitialState: function() {
     return {
@@ -26,6 +26,6 @@ module.exports = React.createClass({
 
   _onClick: function(evt) {
     evt.preventDefault();
-    this.gofluxActions('routeActions').goTo(this.state.href);
+    routeActions.goTo(this.state.href);
   }
 });

@@ -11,8 +11,10 @@ var express = require('express'),
     User = require('./models/user'),
     App = require('../common/views/App.jsx'),
 
+    RouteStore = require('../common/stores/RouteStore'),
+    routeActions = require('../common/actions/routeActions'),
+
     constants = require('../common/config/constants'),
-    gofluxApp = require('../common/gofluxApp'),
     resolver = require('../common/utils/resolver'),
     fetch = require('../common/utils/fetch');
 
@@ -66,16 +68,15 @@ app.use('/api', require('./routes/api.js'));
 // Catch-all route
 //
 app.get('*', function(req, res) {
-  var context = gofluxApp.createContext(),
-      cookieStr = res.get('set-cookie'), // Fetch the newly-set cookie
+  var cookieStr = res.get('set-cookie'), // Fetch the newly-set cookie
       app;
 
   // First, populate route store
   //
-  context.getActions('routeActions').goTo(req.path);
+  routeActions.goTo(req.path);
 
   // 1st render, triggers all componentWillMount.
-  app = React.createElement(App, {gofluxContext: context});
+  app = React.createElement(App);
 
   console.log('[server] 1st render');
 
@@ -96,7 +97,7 @@ app.get('*', function(req, res) {
     var html = React.renderToString(app); // Also collects promises, but ignored
 
     res.render('index', {
-      meta: context.getStore('RouteStore').getMeta(),
+      meta: RouteStore.getMeta(),
       html: html
     });
   }).catch(function(reason) {

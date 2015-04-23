@@ -1,23 +1,23 @@
 var React = require('react'),
     constants = require('../config/constants'),
-    mixins = require('goflux').mixins,
     resolver = require('../utils/resolver'),
+
+    ProductStore = require('../stores/ProductStore'),
+    productActions = require('../actions/productActions'),
+    routeActions = require('../actions/routeActions'),
 
     Link = require('./Link.jsx'),
 
     CartButton = require('./CartButton.jsx');
 
 module.exports = React.createClass({
-  mixins: [mixins.GofluxMixin(React)],
 
   componentDidMount: function() {
-    this.gofluxStore('ProductStore')
-        .addListener(constants.CHANGE, this._onStoreChange);
+    ProductStore.addListener(constants.CHANGE, this._onStoreChange);
   },
 
   componentWillUnmount: function() {
-    this.gofluxStore('ProductStore')
-        .removeListener(constants.CHANGE, this._onStoreChange);
+    ProductStore.removeListener(constants.CHANGE, this._onStoreChange);
   },
 
   _onStoreChange: function() {
@@ -26,19 +26,19 @@ module.exports = React.createClass({
 
   getInitialState: function() {
     return {
-      products: this.gofluxStore('ProductStore').all()
+      products: ProductStore.all(),
     };
   },
 
   componentWillMount: function() {
     var dataPromise = Promise.resolve();
-    if (!this.gofluxStore('ProductStore').hasInitialized()) {
+    // if (!ProductStore.hasInitialized()) {
       dataPromise = resolver.addPromise(
-        this.gofluxActions('productActions').all()
+        productActions.all()
       );
-    }
+    // }
     dataPromise.then(function() {
-      this.gofluxActions('routeActions').setMeta({
+      routeActions.setMeta({
         title: 'All products'
       });
     }.bind(this));

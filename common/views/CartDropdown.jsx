@@ -1,44 +1,44 @@
 var React = require('react'),
-    mixins = require('goflux').mixins,
     constants = require('../config/constants'),
     resolver = require('../utils/resolver'),
+
+    CartStore = require('../stores/CartStore'),
+    cartActions = require('../actions/cartActions'),
 
     Link = require('./Link.jsx');
 
 module.exports = React.createClass({
-  mixins: [mixins.GofluxMixin(React)],
 
   _onCartChange: function() {
     this.setState(this.getInitialState());
   },
 
   _removeFromCart: function(productId) {
-    this.gofluxActions('cartActions').remove(productId);
+    cartActions.remove(productId);
   },
 
   getInitialState: function() {
-    var cartStore = this.gofluxStore('CartStore');
     return {
-      cart: cartStore.all(),
-      isCartLoading: !cartStore.hasInitialized()
+      cart: CartStore.all(),
+      isCartLoading: !CartStore.hasInitialized()
     };
   },
 
   componentWillMount: function() {
-    if (!this.gofluxStore('CartStore').hasInitialized()) {
-      resolver.addPromise(this.gofluxActions('cartActions').all());
-    }
+    // if (!CartStore.hasInitialized()) {
+      resolver.addPromise(cartActions.all());
+    // }
   },
 
   componentDidMount: function() {
-    this.gofluxStore('CartStore').addListener(constants.CHANGE, this._onCartChange);
+    CartStore.addListener(constants.CHANGE, this._onCartChange);
 
     // Initialize dropdown
     $(React.findDOMNode(this.refs.Toggle)).dropdown();
   },
 
   componentWillUnmount: function() {
-    this.gofluxStore('CartStore').removeListener(constants.CHANGE, this._onCartChange);
+    CartStore.removeListener(constants.CHANGE, this._onCartChange);
   },
 
 

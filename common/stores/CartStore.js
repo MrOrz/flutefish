@@ -1,49 +1,59 @@
-var createEmitter = require('../utils/createEmitter'),
+var dispatcher = require('../dispatcher'),
+    createEmitter = require('../utils/createEmitter'),
     constants = require('../config/constants'),
-    assign = require('object-assign');
+    assign = require('object-assign'),
 
-module.exports = function(context) {
+    ProductStore = require('./ProductStore'),
 
-  // Product ids for "cart", in display order.
-  //
-  var cartProductIds = [],
+    CartStore,
+    cartProductIds = [],
 
-      // If cartProductIds is populated in store.
-      // React components can check this before it before dispatching actions.
-      //
-      hasInitialized = false;
+    // If cartProductIds is populated in store.
+    // React components can check this before it before dispatching actions.
+    //
+    hasInitialized = false;
 
-  return createEmitter({
-    _onCartLoading: function() {
-      hasInitialized = false;
-      this.emit(constants.CHANGE);
-    },
+module.exports = CartStore = createEmitter({
+  _onCartLoading: function() {
+    hasInitialized = false;
+    this.emit(constants.CHANGE);
+  },
 
-    _onSetCart: function(products) {
+  _onSetCart: function(products) {
 
-      // Wait for product store to populate the cart product data
-      context.waitFor(['ProductStore']);
+    // Wait for product store to populate the cart product data
+    dispatcher.waitFor([ProductStore.dispatchToken]);
 
-      cartProductIds = products.map(function(product) {return product.id;});
-      hasInitialized = true;
+    cartProductIds = products.map(function(product) {return product.id;});
+    hasInitialized = true;
 
-      this.emit(constants.CHANGE);
-    },
+    this.emit(constants.CHANGE);
+  },
 
-    all: function() {
-      var productStore = context.getStore('ProductStore');
+  all: function() {
+    return cartProductIds.map(function(id) {
+      return ProductStore.get(id);
+    });
+  },
 
-      return cartProductIds.map(function(id) {
-        return productStore.get(id);
-      });
-    },
+  allIds: function() {
+    return cartProductIds;
+  },
 
-    allIds: function() {
-      return cartProductIds;
-    },
+  hasInitialized: function() {
+    return hasInitialized;
+  }
+});
 
-    hasInitialized: function() {
-      return hasInitialized;
-    }
-  });
-};
+CartStore.dispatchToken = dispatcher.register(function(payload) {
+  switch (payload.actionType) {
+
+  case 'CART_LOADING':
+    CartStore._onCartLoading();
+    break;
+
+  case 'SET_CART':
+    CartStore._onSetCart(payload.data);
+    break;
+  }
+});

@@ -1,22 +1,21 @@
 var React = require('react'),
     constants = require('../config/constants'),
-    mixins = require('goflux').mixins;
+
+    CartStore = require('../stores/CartStore'),
+    cartActions = require('../actions/cartActions');
 
 module.exports = React.createClass({
-  mixins: [mixins.GofluxMixin(React)],
 
   propTypes: {
     productId: React.PropTypes.string.isRequired
   },
 
   componentDidMount: function() {
-    this.gofluxStore('CartStore')
-        .addListener(constants.CHANGE, this._onCartChange);
+    CartStore.addListener(constants.CHANGE, this._onCartChange);
   },
 
   componentWillUnmount: function() {
-    this.gofluxStore('CartStore')
-        .removeListener(constants.CHANGE, this._onCartChange);
+    CartStore.removeListener(constants.CHANGE, this._onCartChange);
   },
 
   _onCartChange: function() {
@@ -25,19 +24,18 @@ module.exports = React.createClass({
 
   _addToCart: function() {
     this.setState({isLoading: true});
-    this.gofluxActions('cartActions').add(this.props.productId);
+    cartActions.add(this.props.productId);
   },
 
   _removeFromCart: function() {
     this.setState({isLoading: true});
-    this.gofluxActions('cartActions').remove(this.props.productId);
+    cartActions.remove(this.props.productId);
   },
 
   getInitialState: function() {
-    var cartStore = this.gofluxStore('CartStore');
     return {
-      isLoading: !cartStore.hasInitialized(),
-      isInCart: cartStore.allIds().indexOf(this.props.productId) !== -1
+      isLoading: !CartStore.hasInitialized(),
+      isInCart: CartStore.allIds().indexOf(this.props.productId) !== -1
     };
   },
 

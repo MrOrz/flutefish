@@ -8,20 +8,21 @@ require('../css/client.css');
 
 var React = require('react'),
     App = require('../../common/views/App.jsx'),
-    gofluxApp = require('../../common/gofluxApp'),
-    context = gofluxApp.createContext(),
-    constants = require('../../common/config/constants');
+    constants = require('../../common/config/constants'),
 
-context.getActions('routeActions').goTo(window.location.pathname);
+    RouteStore = require('../../common/stores/RouteStore'),
+    routeActions = require('../../common/actions/routeActions');
+
+routeActions.goTo(window.location.pathname);
 
 React.render((
-  <App gofluxContext={context} />
+  <App />
 ), document.getElementById('react-root'));
 
 // Bind back-button / forward button listener
 //
 window.addEventListener('popstate', function(evt) {
-  context.getActions('routeActions').goTo(
+  routeActions.goTo(
     window.location.pathname,
     evt.state
   );
@@ -29,7 +30,7 @@ window.addEventListener('popstate', function(evt) {
 
 // Set document title when meta data changes
 //
-context.getStore('RouteStore').addListener(constants.CHANGE, function() {
-  var meta = context.getStore('RouteStore').getMeta();
+RouteStore.addListener(constants.CHANGE, function() {
+  var meta = RouteStore.getMeta();
   document.title = meta.suffixedTitle;
 });
