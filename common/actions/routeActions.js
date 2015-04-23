@@ -4,7 +4,7 @@ var router = require('../config/router'),
 module.exports = function(context) {
   return {
     goTo: function(path, poppedState) {
-      console.log('Matching route for path', path);
+      console.log('[routeActions.goTo] Matching route for path', path);
       // Get corresponding route object and dispatch it to store
       //
       var route = router.getRoute(path);
