@@ -6,14 +6,6 @@ module.exports = React.createClass({
     productId: React.PropTypes.string.isRequired
   },
 
-  _addToCart: function() {
-    this.setState({isInCart: true});
-  },
-
-  _removeFromCart: function() {
-    this.setState({isInCart: false});
-  },
-
   getInitialState: function() {
     // Hard-code some products in cart for demo purposes
     //
@@ -33,15 +25,13 @@ module.exports = React.createClass({
     if (this.state.isInCart) {
       return (
         <button type="button"
-                className={className + 'is-added'}
-                onClick={this._removeFromCart}>
+                className={className + 'is-added'}>
         </button>
       );
     } else {
       return (
         <button type="button"
-                className={className + 'is-notAdded'}
-                onClick={this._addToCart}>
+                className={className + 'is-notAdded'}>
         </button>
       );
     }
