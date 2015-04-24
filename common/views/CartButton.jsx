@@ -1,6 +1,4 @@
-var React = require('react'),
-
-    CartStore = require('../stores/CartStore');
+var React = require('react');
 
 module.exports = React.createClass({
 
@@ -17,8 +15,11 @@ module.exports = React.createClass({
   },
 
   getInitialState: function() {
+    // Hard-code some products in cart for demo purposes
+    //
+    var idsInCart = ['mola', 'mola-mola', 'flutefish'];
     return {
-      isInCart: CartStore.allIds().indexOf(this.props.productId) !== -1
+      isInCart: idsInCart.indexOf(this.props.productId) !== -1
     };
   },
 

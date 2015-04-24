@@ -1,7 +1,5 @@
 var React = require('react'),
 
-    ProductStore = require('../stores/ProductStore'),
-
     CartButton = require('./CartButton.jsx');
 
 module.exports = React.createClass({
@@ -12,7 +10,15 @@ module.exports = React.createClass({
 
   getInitialState: function() {
     return {
-      product: ProductStore.get(this.props.productId)
+
+      // Hard code product for now.
+      // It should fetch data using this.props.productId.
+      //
+      product: {
+        id: 'mola', name: 'Mola', price: 890,
+        thumbnail: '/images/mola-bags.jpg',
+        image: '/images/mola-bag.jpg'
+      }
     }
   },
 

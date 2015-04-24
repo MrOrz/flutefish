@@ -1,6 +1,4 @@
-var React = require('react'),
-
-    CartStore = require('../stores/CartStore');
+var React = require('react');
 
 module.exports = React.createClass({
 
@@ -18,7 +16,25 @@ module.exports = React.createClass({
 
   getInitialState: function() {
     return {
-      cart: CartStore.all()
+      // Hard-code some products in cart for demo purposes
+      //
+      cart: [
+        {
+          id: 'mola', name: 'Mola', price: 890,
+          thumbnail: '/images/mola-bags.jpg',
+          image: '/images/mola-bag.jpg'
+        },
+        {
+          id: 'mola-mola', name: 'Mola Mola', price: 799,
+          thumbnail: '/images/mola-ip3s.jpg',
+          image: '/images/mola-ip3.jpg'
+        },
+        {
+          id: 'flutefish', name: 'Flutefish', price: 1099,
+          thumbnail: '/images/flute-bag2s.jpg',
+          image: '/images/flute-bag2.jpg'
+        }
+      ]
     };
   },
 

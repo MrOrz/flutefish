@@ -1,14 +1,41 @@
 var React = require('react'),
 
-    ProductStore = require('../stores/ProductStore'),
-
     CartButton = require('./CartButton.jsx');
 
 module.exports = React.createClass({
 
   getInitialState: function() {
     return {
-      products: ProductStore.all(),
+      products: [
+        {
+          id: 'mola', name: 'Mola',
+          thumbnail: '/images/mola-bags.jpg'
+        },
+        {
+          id: 'mola-light', name: 'Mola Light',
+          thumbnail: '/images/mola-ip1s.jpg'
+        },
+        {
+          id: 'mola-deep', name: 'Mola Deep',
+          thumbnail: '/images/mola-ip2s.jpg'
+        },
+        {
+          id: 'mola-mola', name: 'Mola Mola',
+          thumbnail: '/images/mola-ip3s.jpg'
+        },
+        {
+          id: 'mola-oao', name: 'Mola OAO',
+          thumbnail: '/images/mola-ip4s.jpg'
+        },
+        {
+          id: 'flutefish', name: 'Flutefish',
+          thumbnail: '/images/flute-bag2s.jpg'
+        },
+        {
+          id: 'flute', name: 'Flute ∞',
+          thumbnail: '/images/flute-bag1s.jpg'
+        }
+      ]
     };
   },
 
