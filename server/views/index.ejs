@@ -17,6 +17,9 @@
 </head>
 <body>
   <div id="react-root"></div>
-  <script src="/build/client.js"></script>
+  <script>
+    var PRODUCT_ID = "<%= productId.replace('"', '') %>";
+  </script>
+  <script src="/build/<%= js %>.js"></script>
 </body>
 </html>

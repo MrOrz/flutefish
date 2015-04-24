@@ -2,9 +2,7 @@ var React = require('react'),
     constants = require('../config/constants'),
 
     CartStore = require('../stores/CartStore'),
-    cartActions = require('../actions/cartActions'),
-
-    Link = require('./Link.jsx');
+    cartActions = require('../actions/cartActions');
 
 module.exports = React.createClass({
 
@@ -64,9 +62,9 @@ module.exports = React.createClass({
             <ul key="list">{cart.map(function(product) {
               return (
                 <li key={product.id}>
-                  <Link to="product" params={{id: product.id}}>
+                  <a href={'/products/' + product.id}>
                     {product.name}
-                  </Link>
+                  </a>
                   <button className="btn btn-sm CartDropdown-remove"
                           onClick={this._removeFromCart.bind(this, product.id)}>
                     <span className="glyphicon glyphicon-remove" />

@@ -3,9 +3,7 @@ var React = require('react'),
 
     ProductStore = require('../stores/ProductStore'),
     productActions = require('../actions/productActions'),
-    routeActions = require('../actions/routeActions'),
 
-    Link = require('./Link.jsx'),
     CartButton = require('./CartButton.jsx');
 
 module.exports = React.createClass({
@@ -33,24 +31,13 @@ module.exports = React.createClass({
   },
 
   componentWillMount: function() {
-    var product = ProductStore.get(this.props.productId),
-        dataPromise = Promise.resolve();
+    var product = ProductStore.get(this.props.productId);
 
     if (!(product && product.image)) {
       // store not populated yet, start loading
 
-      dataPromise = productActions.get(this.props.productId);
+      productActions.get(this.props.productId);
     }
-
-    dataPromise.then(function() {
-      // Re-fetch from store
-      var product = ProductStore.get(this.props.productId);
-
-      routeActions.setMeta({
-        title: product.name,
-        ogImage: product.image
-      });
-    }.bind(this));
 
   },
 

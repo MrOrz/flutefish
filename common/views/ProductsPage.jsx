@@ -3,9 +3,6 @@ var React = require('react'),
 
     ProductStore = require('../stores/ProductStore'),
     productActions = require('../actions/productActions'),
-    routeActions = require('../actions/routeActions'),
-
-    Link = require('./Link.jsx'),
 
     CartButton = require('./CartButton.jsx');
 
@@ -30,15 +27,9 @@ module.exports = React.createClass({
   },
 
   componentWillMount: function() {
-    var dataPromise = Promise.resolve();
     if (!ProductStore.hasInitialized()) {
-      dataPromise = productActions.all();
+      productActions.all();
     }
-    dataPromise.then(function() {
-      routeActions.setMeta({
-        title: 'All products'
-      });
-    }.bind(this));
   },
 
   render: function() {
@@ -47,12 +38,12 @@ module.exports = React.createClass({
       return (
         <li className="Grid-cell col-xs-12 col-md-3" key={product.id}>
           <figure className="ProductsPage-cell">
-            <Link to="product" params={{id: product.id}}>
+            <a href={'/products/' + product.id}>
               <img className="ProductsPage-image" src={product.thumbnail}
                    alt={product.name} />
-            </Link>
+            </a>
             <figcaption className="ProductsPage-caption">
-              <Link to="product" params={{id: product.id}}>{product.name}</Link>
+              <a href={'/products/' + product.id}>{product.name}</a>
               <CartButton className="CartButton--iconOnly btn-lg"
                           productId={product.id} />
             </figcaption>

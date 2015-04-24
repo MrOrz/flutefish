@@ -45,10 +45,20 @@ app.use(function(req, res, next) {
 app.use('/api', require('./routes/api.js'));
 
 //
-// Catch-all route
+// Pages
 //
-app.get('*', function(req, res) {
-  res.render('index');
+app.get('/products/:id', function(req, res) {
+  res.render('index', {
+    js: 'product',
+    productId: req.params.id
+  });
+});
+
+app.get('/', function(req, res) {
+  res.render('index', {
+    js: 'index',
+    productId: ''
+  });
 });
 
 var server = app.listen(constants.PORT, function() {
