@@ -4,6 +4,18 @@ var React = require('react'),
 
 module.exports = React.createClass({
 
+  _removeFromCart: function(productId) {
+    // Filter out the clicked product
+    //
+    var newCart = this.state.cart.filter(function(product) {
+      return productId !== product.id
+    });
+
+    this.setState({
+      cart: newCart
+    });
+  },
+
   getInitialState: function() {
     return {
       cart: CartStore.all()
@@ -11,6 +23,7 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function() {
+
     // Initialize dropdown
     $(React.findDOMNode(this.refs.Toggle)).dropdown();
   },
@@ -42,7 +55,8 @@ module.exports = React.createClass({
                   <a href="/product.html">
                     {product.name}
                   </a>
-                  <button className="btn btn-sm CartDropdown-remove">
+                  <button className="btn btn-sm CartDropdown-remove"
+                          onClick={this._removeFromCart.bind(this, product.id)}>
                     <span className="glyphicon glyphicon-remove" />
                   </button>
                   <span className="pull-right">
