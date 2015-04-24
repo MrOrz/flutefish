@@ -16,7 +16,90 @@
   <![endif]-->
 </head>
 <body>
-  <div id="react-root"></div>
-  <script src="/build/product.js"></script>
+  <div>
+    <header class="SiteHeader is-transparent">
+      <div class="container SiteHeader-container">
+        <a href="/" class="SiteHeader-logo">
+          <h1>Flutefish</h1>
+        </a>
+        <div class="dropdown CartDropdown">
+
+          <button class="CartDropdown-toggle" type="button"
+                  data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false" ref="Toggle" id="cart-dropdown">
+            <span
+              class="CartDropdown-cartIcon glyphicon glyphicon-shopping-cart"
+              aria-hidden="true"></span>
+            2788 TWD
+          </button>
+
+          <div class="dropdown-menu CartDropdown-menu fade in" role="menu"
+            aria-labelledby="cart-dropdown">
+            <ul>
+              <li>
+                <a href="/product.html">
+                  Mola
+                </a>
+                <button class="btn btn-sm CartDropdown-remove">
+                  <span class="glyphicon glyphicon-remove"></span>
+                </button>
+                <span class="pull-right">
+                  $ 890
+                </span>
+              </li>
+              <li>
+                <a href="/product.html">
+                  Mola Mola
+                </a>
+                <button class="btn btn-sm CartDropdown-remove">
+                  <span class="glyphicon glyphicon-remove" ></span>
+                </button>
+                <span class="pull-right">
+                  $ 799
+                </span>
+              </li>
+              <li>
+                <a href="/product.html">
+                  Flutefish
+                </a>
+                <button class="btn btn-sm CartDropdown-remove">
+                  <span class="glyphicon glyphicon-remove"></span>
+                </button>
+                <span class="pull-right">
+                  $ 1099
+                </span>
+              </li>
+            </ul>
+            <hr>
+            <p>
+              Total <span class="pull-right">$ 2788</span>
+            </p>
+            <p>
+              <button class="CartDropdown-checkout btn btn-large btn-block"
+                type="button">
+                Checkout
+              </button>
+            </p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="ProductPage">
+      <div class="ProductPage-image"
+           style="background-image: url(/images/mola-bag.jpg);">
+      </div>
+      <div class="ProductPage-text">
+        <h2>Mola</h2>
+        <p>TWD 890</p>
+        <p>
+          <button type="button"
+                  class="CartButton btn btn-lg is-added">
+          </button>
+        </p>
+      </div>
+    </div>
+  </div>
+  <script src="/build/client.js"></script>
 </body>
 </html>

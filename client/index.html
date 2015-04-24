@@ -16,7 +16,178 @@
   <![endif]-->
 </head>
 <body>
-  <div id="react-root"></div>
-  <script src="/build/index.js"></script>
+  <div>
+    <header class="SiteHeader">
+      <div class="container SiteHeader-container">
+        <a href="/" class="SiteHeader-logo">
+          <h1>Flutefish</h1>
+        </a>
+        <div class="dropdown CartDropdown">
+
+          <button class="CartDropdown-toggle" type="button"
+                  data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false" ref="Toggle" id="cart-dropdown">
+            <span
+              class="CartDropdown-cartIcon glyphicon glyphicon-shopping-cart"
+              aria-hidden="true"></span>
+            2788 TWD
+          </button>
+
+          <div class="dropdown-menu CartDropdown-menu fade in" role="menu"
+            aria-labelledby="cart-dropdown">
+            <ul>
+              <li>
+                <a href="/product.html">
+                  Mola
+                </a>
+                <button class="btn btn-sm CartDropdown-remove">
+                  <span class="glyphicon glyphicon-remove"></span>
+                </button>
+                <span class="pull-right">
+                  $ 890
+                </span>
+              </li>
+              <li>
+                <a href="/product.html">
+                  Mola Mola
+                </a>
+                <button class="btn btn-sm CartDropdown-remove">
+                  <span class="glyphicon glyphicon-remove"></span>
+                </button>
+                <span class="pull-right">
+                  $ 799
+                </span>
+              </li>
+              <li>
+                <a href="/product.html">
+                  Flutefish
+                </a>
+                <button class="btn btn-sm CartDropdown-remove">
+                  <span class="glyphicon glyphicon-remove"></span>
+                </button>
+                <span class="pull-right">
+                  $ 1099
+                </span>
+              </li>
+            </ul>
+            <hr>
+            <p>
+              Total <span class="pull-right">$ 2788</span>
+            </p>
+            <p>
+              <button class="CartDropdown-checkout btn btn-large btn-block"
+                type="button">
+                Checkout
+              </button>
+            </p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="Page ProductsPage container">
+      <ul class="Grid row">
+        <li class="Grid-cell col-xs-12 col-md-3">
+          <figure class="ProductsPage-cell">
+            <a href="/product.html">
+              <img class="ProductsPage-image" src="/images/mola-bags.jpg"
+                   alt="Mola">
+            </a>
+            <figcaption class="ProductsPage-caption">
+              <a href="/product.html">Mola</a>
+              <button type="button"
+                      class="CartButton btn CartButton--iconOnly btn-lg is-added">
+              </button>
+            </figcaption>
+          </figure>
+        </li>
+        <li class="Grid-cell col-xs-12 col-md-3">
+          <figure class="ProductsPage-cell">
+            <a href="/product.html">
+              <img class="ProductsPage-image" src="/images/mola-ip1s.jpg"
+                   alt="Mola Light">
+            </a>
+            <figcaption class="ProductsPage-caption">
+              <a href="/product.html">Mola Light</a>
+              <button type="button"
+                      class="CartButton btn CartButton--iconOnly btn-lg is-notAdded">
+              </button>
+            </figcaption>
+          </figure>
+        </li>
+        <li class="Grid-cell col-xs-12 col-md-3">
+          <figure class="ProductsPage-cell">
+            <a href="/product.html">
+              <img class="ProductsPage-image" src="/images/mola-ip2s.jpg"
+                   alt="Mola Deep">
+            </a>
+            <figcaption class="ProductsPage-caption">
+              <a href="/product.html">Mola Deep</a>
+              <button type="button"
+                      class="CartButton btn CartButton--iconOnly btn-lg is-notAdded">
+              </button>
+            </figcaption>
+          </figure>
+        </li>
+        <li class="Grid-cell col-xs-12 col-md-3">
+          <figure class="ProductsPage-cell">
+            <a href="/product.html">
+              <img class="ProductsPage-image" src="/images/mola-ip3s.jpg"
+                   alt="Mola Mola">
+            </a>
+            <figcaption class="ProductsPage-caption">
+              <a href="/product.html">Mola Mola</a>
+              <button type="button"
+                      class="CartButton btn CartButton--iconOnly btn-lg is-added">
+              </button>
+            </figcaption>
+          </figure>
+        </li>
+        <li class="Grid-cell col-xs-12 col-md-3">
+          <figure class="ProductsPage-cell">
+            <a href="/product.html">
+              <img class="ProductsPage-image" src="/images/mola-ip4s.jpg"
+                   alt="Mola OAO">
+            </a>
+            <figcaption class="ProductsPage-caption">
+              <a href="/product.html">Mola OAO</a>
+              <button type="button"
+                      class="CartButton btn CartButton--iconOnly btn-lg is-notAdded">
+              </button>
+            </figcaption>
+          </figure>
+        </li>
+        <li class="Grid-cell col-xs-12 col-md-3">
+          <figure class="ProductsPage-cell">
+            <a href="/product.html">
+              <img class="ProductsPage-image" src="/images/flute-bag2s.jpg"
+                   alt="Flutefish">
+            </a>
+            <figcaption class="ProductsPage-caption">
+              <a href="/product.html">Flutefish</a>
+              <button type="button"
+                      class="CartButton btn CartButton--iconOnly btn-lg is-added">
+              </button>
+            </figcaption>
+          </figure>
+        </li>
+        <li class="Grid-cell col-xs-12 col-md-3">
+          <figure class="ProductsPage-cell">
+            <a href="/product.html">
+              <img class="ProductsPage-image" src="/images/flute-bag1s.jpg"
+                   alt="Flute ∞">
+            </a>
+            <figcaption class="ProductsPage-caption">
+              <a href="/product.html">Flute ∞</a>
+              <button type="button"
+                      class="CartButton btn CartButton--iconOnly btn-lg is-notAdded">
+              </button>
+            </figcaption>
+          </figure>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <script src="/build/client.js"></script>
 </body>
 </html>

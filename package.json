@@ -25,8 +25,7 @@
   },
   "homepage": "https://github.com/MrOrz/flutefish",
   "dependencies": {
-    "babel": "^5.1.0",
-    "react": "^0.13.1"
+    "babel": "^5.1.0"
   },
   "devDependencies": {
     "autoprefixer-core": "^5.1.11",

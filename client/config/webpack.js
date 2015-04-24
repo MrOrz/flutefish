@@ -2,14 +2,11 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin'),
     constants = require('../../common/config/constants');
 
 module.exports = {
-  entry: {
-    index: './client/js/index.jsx',
-    product: './client/js/product.jsx'
-  },
+  entry: ['./client/js/client.js'],
   output: {
     // __dirname is the path of webpack.js
     path: __dirname + '/../build',
-    filename: '[name].js'
+    filename: 'client.js'
   },
   module: {
     loaders: [
