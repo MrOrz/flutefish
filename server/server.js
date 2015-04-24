@@ -7,28 +7,9 @@ require('babel/register');
 var express = require('express'),
     app = express(),
 
-    React = require('react'),
     User = require('./models/user'),
-    App = require('../common/views/App.jsx'),
 
-    RouteStore = require('../common/stores/RouteStore'),
-    routeActions = require('../common/actions/routeActions'),
-
-    constants = require('../common/config/constants'),
-    fetch = require('../common/utils/fetch');
-
-// Catch all unhandled promise rejections and print error.
-// Ref: https://iojs.org/api/process.html#process_event_unhandledrejection
-//
-process.on('unhandledRejection', function(reason, promise) {
-  if (reason.stack) {
-    // Error object, has stack info
-    console.error('[Unhandled Rejection]', reason.stack);
-  } else {
-    console.error('[Unhandled Rejection] Reason:', reason);
-  }
-  console.error('[Unhandled Rejection] Promise:', promise);
-});
+    constants = require('../common/config/constants');
 
 // view engine setup
 app.set('views', __dirname + '/views');
