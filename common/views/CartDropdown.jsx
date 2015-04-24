@@ -3,7 +3,6 @@ var React = require('react'),
     constants = require('../config/constants'),
     resolver = require('../utils/resolver'),
 
-    CartButton = require('./CartButton.jsx'),
     Link = require('./Link.jsx');
 
 module.exports = React.createClass({
