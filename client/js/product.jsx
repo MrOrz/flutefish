@@ -23,6 +23,6 @@ React.render((
       </div>
     </header>
 
-    <ProductPage productId={window.PRODUCT_ID}/>
+    <ProductPage productId="mola"/>
   </div>
 ), document.getElementById('react-root'));

@@ -4,7 +4,7 @@
   "description": "Example isomorphic app with product listing, individual product page and fav items.",
   "main": "server/server.js",
   "scripts": {
-    "start": "node server/server.js",
+    "start": "cd client; python -m SimpleHTTPServer 5000",
     "watch": "npm run build -- --watch",
     "build": "webpack --config=client/config/webpack.js --progress"
   },
@@ -26,16 +26,9 @@
   "homepage": "https://github.com/MrOrz/flutefish",
   "dependencies": {
     "babel": "^5.1.0",
-    "body-parser": "^1.12.2",
-    "cookie-parser": "^1.3.4",
-    "ejs": "^2.3.1",
-    "express": "^4.12.3",
     "flux": "^2.0.1",
-    "isomorphic-fetch": "^2.0.1",
-    "morgan": "^1.5.2",
     "object-assign": "^2.0.0",
-    "react": "^0.13.1",
-    "serve-favicon": "^2.2.0"
+    "react": "^0.13.1"
   },
   "devDependencies": {
     "autoprefixer-core": "^5.1.11",

@@ -1,33 +1,24 @@
 var dispatcher = require('../dispatcher'),
     createEmitter = require('../utils/createEmitter'),
     constants = require('../config/constants'),
-    assign = require('object-assign'),
 
     ProductStore = require('./ProductStore'),
 
     CartStore,
-    cartProductIds = [],
-
-    // If cartProductIds is populated in store.
-    // React components can check this before it before dispatching actions.
-    //
-    hasInitialized = false;
+    cartProductIds = [];
 
 module.exports = CartStore = createEmitter({
-  _onCartLoading: function() {
-    hasInitialized = false;
+  _onAdd: function(productId) {
+    cartProductIds.push(productId);
     this.emit(constants.CHANGE);
   },
 
-  _onSetCart: function(products) {
-
-    // Wait for product store to populate the cart product data
-    dispatcher.waitFor([ProductStore.dispatchToken]);
-
-    cartProductIds = products.map(function(product) {return product.id;});
-    hasInitialized = true;
-
-    this.emit(constants.CHANGE);
+  _onRemove: function(productId) {
+    var idx = cartProductIds.indexOf(productId);
+    if (idx !== -1) {
+      cartProductIds.splice(idx, 1);
+      this.emit(constants.CHANGE);
+    }
   },
 
   all: function() {
@@ -38,22 +29,16 @@ module.exports = CartStore = createEmitter({
 
   allIds: function() {
     return cartProductIds;
-  },
-
-  hasInitialized: function() {
-    return hasInitialized;
   }
 });
 
-CartStore.dispatchToken = dispatcher.register(function(payload) {
+dispatcher.register(function(payload) {
   switch (payload.actionType) {
-
-  case 'CART_LOADING':
-    CartStore._onCartLoading();
+  case 'ADD_TO_CART':
+    CartStore._onAdd(payload.data);
     break;
-
-  case 'SET_CART':
-    CartStore._onSetCart(payload.data);
+  case 'REMOVE_FROM_CART':
+    CartStore._onRemove(payload.data);
     break;
   }
 });

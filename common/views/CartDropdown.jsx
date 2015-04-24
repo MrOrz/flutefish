@@ -16,15 +16,8 @@ module.exports = React.createClass({
 
   getInitialState: function() {
     return {
-      cart: CartStore.all(),
-      isCartLoading: !CartStore.hasInitialized()
+      cart: CartStore.all()
     };
-  },
-
-  componentWillMount: function() {
-    if (!CartStore.hasInitialized()) {
-      cartActions.all();
-    }
   },
 
   componentDidMount: function() {
@@ -62,7 +55,7 @@ module.exports = React.createClass({
             <ul key="list">{cart.map(function(product) {
               return (
                 <li key={product.id}>
-                  <a href={'/products/' + product.id}>
+                  <a href="/product.html">
                     {product.name}
                   </a>
                   <button className="btn btn-sm CartDropdown-remove"

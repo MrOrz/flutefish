@@ -23,18 +23,15 @@ module.exports = React.createClass({
   },
 
   _addToCart: function() {
-    this.setState({isLoading: true});
     cartActions.add(this.props.productId);
   },
 
   _removeFromCart: function() {
-    this.setState({isLoading: true});
     cartActions.remove(this.props.productId);
   },
 
   getInitialState: function() {
     return {
-      isLoading: !CartStore.hasInitialized(),
       isInCart: CartStore.allIds().indexOf(this.props.productId) !== -1
     };
   },
@@ -46,14 +43,7 @@ module.exports = React.createClass({
       className += this.props.className + ' '
     }
 
-    if (this.state.isLoading) {
-      return (
-        <button type="button"
-                className={className + 'is-loading'}
-                disabled>
-        </button>
-      );
-    } else if (this.state.isInCart) {
+    if (this.state.isInCart) {
       return (
         <button type="button"
                 className={className + 'is-added'}
