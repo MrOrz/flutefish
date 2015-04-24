@@ -6,38 +6,38 @@ var assert = require('assert'),
     products = [
       {
         id: 'mola', name: 'Mola', price: 890,
-        thumbnail: '/images/mola-bags.png',
-        image: '/images/mola-bag.png'
+        thumbnail: '/images/mola-bags.jpg',
+        image: '/images/mola-bag.jpg'
       },
       {
         id: 'mola-light', name: 'Mola Light', price: 890,
-        thumbnail: '/images/mola-ip1s.png',
-        image: '/images/mola-ip1.png'
+        thumbnail: '/images/mola-ip1s.jpg',
+        image: '/images/mola-ip1.jpg'
       },
       {
         id: 'mola-deep', name: 'Mola Deep', price: 890,
-        thumbnail: '/images/mola-ip2s.png',
-        image: '/images/mola-ip2.png'
+        thumbnail: '/images/mola-ip2s.jpg',
+        image: '/images/mola-ip2.jpg'
       },
       {
         id: 'mola-mola', name: 'Mola Mola', price: 799,
-        thumbnail: '/images/mola-ip3s.png',
-        image: '/images/mola-ip3.png'
+        thumbnail: '/images/mola-ip3s.jpg',
+        image: '/images/mola-ip3.jpg'
       },
       {
         id: 'mola-oao', name: 'Mola OAO', price: 799,
-        thumbnail: '/images/mola-ip4s.png',
-        image: '/images/mola-ip4.png'
+        thumbnail: '/images/mola-ip4s.jpg',
+        image: '/images/mola-ip4.jpg'
       },
       {
         id: 'flutefish', name: 'Flutefish', price: 1099,
-        thumbnail: '/images/flute-bag2s.png',
-        image: '/images/flute-bag2.png'
+        thumbnail: '/images/flute-bag2s.jpg',
+        image: '/images/flute-bag2.jpg'
       },
       {
         id: 'flute', name: 'Flute ∞', price: 1199,
-        thumbnail: '/images/flute-bag1s.png',
-        image: '/images/flute-bag1.png'
+        thumbnail: '/images/flute-bag1s.jpg',
+        image: '/images/flute-bag1.jpg'
       }
     ];
 

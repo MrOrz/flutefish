@@ -1,3 +1,7 @@
+body {
+  background: hsl(2, 10, 90);
+}
+
 .SiteHeader {
   background: #E55A54;
   color: rgba(255,255,255,0.87);
@@ -11,6 +15,7 @@
 
 .SiteHeader.is-transparent {
   background: transparent;
+  color: #E55A54;
 }
 
 .SiteHeader-container {
@@ -26,7 +31,7 @@
 }
 
 .SiteHeader-logo > h1 {
-  background: url(../images/logo.svg) no-repeat;
+  background: url(../images/logo-inverse.svg) no-repeat;
   width: 157px;
   height: 44px;
 
@@ -37,11 +42,20 @@
   margin: 0;
 }
 
+.SiteHeader.is-transparent .SiteHeader-logo > h1 {
+  background-image: url(../images/logo.svg);
+}
+
 .CartDropdown {
   /* Same height as SiteHeader */
   height: 100%;
 }
 
+@media screen and (min-width: 768px) {
+  .SiteHeader.is-transparent .CartDropdown {
+    color: rgba(255,255,255,.87);
+  }
+}
 
 .CartDropdown-toggle {
   /* Remove button style */
@@ -232,12 +246,12 @@ ul.Grid {
 
 .ProductsPage-cell {
   position: relative; /*  For caption */
-  background: hsl(2, 10, 90);
   border-radius: 2px;
 }
 
 .ProductsPage-image {
   width: 100%;
+  border-radius: 2px;
 }
 
 .ProductsPage-caption {
@@ -251,6 +265,9 @@ ul.Grid {
   display: flex;
   align-items: center;
   background: rgba(0,0,0,.56);
+
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
 }
 
 .ProductsPage-caption > a {
@@ -279,7 +296,7 @@ ul.Grid {
 }
 
 .ProductPage-image {
-  background-color: hsl(2, 0, 51);
+  background-color: #fff;
   background-size: contain;
   background-position: center center;
   background-repeat: no-repeat;
