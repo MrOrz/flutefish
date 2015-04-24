@@ -1,12 +1,6 @@
-var dispatcher = require('../dispatcher'),
-    createEmitter = require('../utils/createEmitter'),
-    constants = require('../config/constants'),
-
-    ProductStore,
-
-    // Product id --> product instance.
-    // "Single source of truth" for the products.
-    products = {
+// Product id --> product instance.
+// "Single source of truth" for the products.
+var products = {
       'mola': {
         id: 'mola', name: 'Mola', price: 890,
         thumbnail: '/images/mola-bags.jpg',
@@ -51,7 +45,7 @@ var dispatcher = require('../dispatcher'),
       'flutefish', 'flute'
     ];
 
-module.exports = ProductStore = createEmitter({
+module.exports = {
   all: function() {
     return allProductIds.map(function(id) {
       return products[id];
@@ -59,5 +53,5 @@ module.exports = ProductStore = createEmitter({
   },
   get: function(id) {
     return products[id];
-  },
-});
+  }
+};

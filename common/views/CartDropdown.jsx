@@ -1,18 +1,8 @@
 var React = require('react'),
-    constants = require('../config/constants'),
 
-    CartStore = require('../stores/CartStore'),
-    cartActions = require('../actions/cartActions');
+    CartStore = require('../stores/CartStore');
 
 module.exports = React.createClass({
-
-  _onCartChange: function() {
-    this.setState(this.getInitialState());
-  },
-
-  _removeFromCart: function(productId) {
-    cartActions.remove(productId);
-  },
 
   getInitialState: function() {
     return {
@@ -21,14 +11,8 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function() {
-    CartStore.addListener(constants.CHANGE, this._onCartChange);
-
     // Initialize dropdown
     $(React.findDOMNode(this.refs.Toggle)).dropdown();
-  },
-
-  componentWillUnmount: function() {
-    CartStore.removeListener(constants.CHANGE, this._onCartChange);
   },
 
   render: function() {
@@ -58,8 +42,7 @@ module.exports = React.createClass({
                   <a href="/product.html">
                     {product.name}
                   </a>
-                  <button className="btn btn-sm CartDropdown-remove"
-                          onClick={this._removeFromCart.bind(this, product.id)}>
+                  <button className="btn btn-sm CartDropdown-remove">
                     <span className="glyphicon glyphicon-remove" />
                   </button>
                   <span className="pull-right">

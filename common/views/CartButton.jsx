@@ -1,33 +1,11 @@
 var React = require('react'),
-    constants = require('../config/constants'),
 
-    CartStore = require('../stores/CartStore'),
-    cartActions = require('../actions/cartActions');
+    CartStore = require('../stores/CartStore');
 
 module.exports = React.createClass({
 
   propTypes: {
     productId: React.PropTypes.string.isRequired
-  },
-
-  componentDidMount: function() {
-    CartStore.addListener(constants.CHANGE, this._onCartChange);
-  },
-
-  componentWillUnmount: function() {
-    CartStore.removeListener(constants.CHANGE, this._onCartChange);
-  },
-
-  _onCartChange: function() {
-    this.setState(this.getInitialState());
-  },
-
-  _addToCart: function() {
-    cartActions.add(this.props.productId);
-  },
-
-  _removeFromCart: function() {
-    cartActions.remove(this.props.productId);
   },
 
   getInitialState: function() {
@@ -46,15 +24,13 @@ module.exports = React.createClass({
     if (this.state.isInCart) {
       return (
         <button type="button"
-                className={className + 'is-added'}
-                onClick={this._removeFromCart}>
+                className={className + 'is-added'}>
         </button>
       );
     } else {
       return (
         <button type="button"
-                className={className + 'is-notAdded'}
-                onClick={this._addToCart}>
+                className={className + 'is-notAdded'}>
         </button>
       );
     }

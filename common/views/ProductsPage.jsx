@@ -1,5 +1,4 @@
 var React = require('react'),
-    constants = require('../config/constants'),
 
     ProductStore = require('../stores/ProductStore'),
 

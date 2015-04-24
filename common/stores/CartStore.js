@@ -1,26 +1,10 @@
-var dispatcher = require('../dispatcher'),
-    createEmitter = require('../utils/createEmitter'),
-    constants = require('../config/constants'),
+var ProductStore = require('./ProductStore'),
 
-    ProductStore = require('./ProductStore'),
+    // Hard-code some products in cart for demo purposes
+    //
+    cartProductIds = ['mola', 'mola-mola', 'flutefish'];
 
-    CartStore,
-    cartProductIds = [];
-
-module.exports = CartStore = createEmitter({
-  _onAdd: function(productId) {
-    cartProductIds.push(productId);
-    this.emit(constants.CHANGE);
-  },
-
-  _onRemove: function(productId) {
-    var idx = cartProductIds.indexOf(productId);
-    if (idx !== -1) {
-      cartProductIds.splice(idx, 1);
-      this.emit(constants.CHANGE);
-    }
-  },
-
+module.exports = {
   all: function() {
     return cartProductIds.map(function(id) {
       return ProductStore.get(id);
@@ -30,15 +14,4 @@ module.exports = CartStore = createEmitter({
   allIds: function() {
     return cartProductIds;
   }
-});
-
-dispatcher.register(function(payload) {
-  switch (payload.actionType) {
-  case 'ADD_TO_CART':
-    CartStore._onAdd(payload.data);
-    break;
-  case 'REMOVE_FROM_CART':
-    CartStore._onRemove(payload.data);
-    break;
-  }
-});
+};

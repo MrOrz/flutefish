@@ -26,8 +26,6 @@
   "homepage": "https://github.com/MrOrz/flutefish",
   "dependencies": {
     "babel": "^5.1.0",
-    "flux": "^2.0.1",
-    "object-assign": "^2.0.0",
     "react": "^0.13.1"
   },
   "devDependencies": {
