@@ -11,7 +11,7 @@ module.exports = React.createClass({
   mixins: [
     mixins.GofluxMixin(React),
     mixins.StoreWatchMixin([
-      'ProductStore', 'CartStore'
+      'ProductStore'
     ], constants.CHANGE, '_onStoreChange')
   ],
 
@@ -21,8 +21,7 @@ module.exports = React.createClass({
 
   getInitialState: function() {
     return {
-      products: this.gofluxStore('ProductStore').all(),
-      idsInCart: this.gofluxStore('CartStore').allIds()
+      products: this.gofluxStore('ProductStore').all()
     };
   },
 

@@ -1,5 +1,4 @@
-var fetch = require('../utils/fetch'),
-    constants = require('../config/constants');
+var fetch = require('../utils/fetch');
 
 module.exports = function(context) {
   return {
